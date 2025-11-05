@@ -1902,6 +1902,250 @@ TARGET_SOFTWARE = {
         "detection": ['TestDisk'],
         "reason": "Partition recovery. Advanced tool. GUI wrappers often bloat.",
     },
+    
+    # Enhanced Detection - Cryptominers & Malicious Software
+    "XMRig": {
+        "type": "Malware/Cryptominer",
+        "detection": ['XMRig', 'xmrig', 'monero'],
+        "reason": "Cryptocurrency mining software often installed without consent. Consumes CPU/GPU resources, increases electricity bills, and reduces system performance. High risk of being bundled malware.",
+    },
+    "NiceHash Miner": {
+        "type": "PUP/Cryptominer",
+        "detection": ['NiceHash', 'nicehash miner'],
+        "reason": "Crypto mining software. While legitimate, often bundled without clear consent. Drains system resources and electricity.",
+    },
+    "Coinhive": {
+        "type": "Malware/Cryptominer",
+        "detection": ['Coinhive', 'coin-hive'],
+        "reason": "Browser-based cryptocurrency miner. Known for being embedded in websites and software without user consent. Performance killer.",
+    },
+    "CryptoTab": {
+        "type": "PUP/Browser Hijacker",
+        "detection": ['CryptoTab', 'cryptotab browser'],
+        "reason": "Browser that mines cryptocurrency using your CPU. Disguised as legitimate browser. Major resource drain.",
+    },
+    
+    # Remote Access Trojans (RATs)
+    "DarkComet": {
+        "type": "Malware/RAT",
+        "detection": ['DarkComet', 'Dark Comet'],
+        "reason": "Remote Access Trojan. Allows complete remote control of infected systems. Used for data theft, surveillance, and system compromise.",
+    },
+    "NanoCore": {
+        "type": "Malware/RAT",
+        "detection": ['NanoCore', 'Nano Core'],
+        "reason": "Remote administration tool frequently used as malware. Enables keylogging, webcam access, and file theft.",
+    },
+    "njRAT": {
+        "type": "Malware/RAT",
+        "detection": ['njRAT', 'njrat', 'Bladabindi'],
+        "reason": "Notorious remote access trojan. Steals passwords, logs keystrokes, and provides full remote control to attackers.",
+    },
+    
+    # Keyloggers & Spyware
+    "Actual Keylogger": {
+        "type": "Spyware/Keylogger",
+        "detection": ['Actual Keylogger', 'actualkeylogger'],
+        "reason": "Keylogging software marketed as monitoring tool. Records all keystrokes including passwords and sensitive data. Major privacy violation.",
+    },
+    "Refog Keylogger": {
+        "type": "Spyware/Keylogger",
+        "detection": ['Refog', 'refog keylogger'],
+        "reason": "Commercial keylogger. Captures keystrokes, screenshots, clipboard content. Often installed without proper disclosure.",
+    },
+    "KidLogger": {
+        "type": "Spyware/Keylogger",
+        "detection": ['KidLogger', 'kidlogger'],
+        "reason": "Monitoring software with keylogging capabilities. Privacy invasion tool that records all user activity.",
+    },
+    "WebWatcher": {
+        "type": "Spyware",
+        "detection": ['WebWatcher', 'web watcher'],
+        "reason": "Computer monitoring software. Tracks browsing history, keystrokes, and screenshots. Significant privacy concern.",
+    },
+    
+    # Browser Hijackers & Adware
+    "Search Protect": {
+        "type": "Browser Hijacker",
+        "detection": ['Search Protect', 'Conduit Search Protect'],
+        "reason": "Browser hijacker that modifies search settings and homepage. Redirects searches to generate ad revenue. Difficult to remove.",
+    },
+    "Sweet Page": {
+        "type": "Browser Hijacker",
+        "detection": ['Sweet Page', 'sweetpage'],
+        "reason": "Browser hijacker changing homepage and new tab page. Injects ads and tracks browsing behavior.",
+    },
+    "Qvo6": {
+        "type": "Browser Hijacker",
+        "detection": ['Qvo6', 'qvo6.com'],
+        "reason": "Aggressive browser hijacker. Modifies browser settings, redirects searches, displays unwanted ads.",
+    },
+    "iStart123": {
+        "type": "Browser Hijacker",
+        "detection": ['iStart123', 'istart123'],
+        "reason": "Browser hijacker that takes over homepage and search engine. Displays ads and collects browsing data.",
+    },
+    "Mystart": {
+        "type": "Browser Hijacker",
+        "detection": ['Mystart', 'mystart.incredibar'],
+        "reason": "Part of Incredibar. Changes browser homepage and search provider. Tracks user behavior for advertising.",
+    },
+    "Delta Search": {
+        "type": "Browser Hijacker",
+        "detection": ['Delta Search', 'delta-homes', 'deltasearch'],
+        "reason": "Browser hijacker modifying default search engine. Known for being bundled with freeware and being hard to remove.",
+    },
+    "Snap.do": {
+        "type": "Browser Hijacker",
+        "detection": ['Snap.do', 'snapdo', 'smartbar'],
+        "reason": "Browser toolbar and hijacker. Changes search settings, injects ads, tracks browsing activity.",
+    },
+    
+    # Fake System Optimizers & Scareware
+    "PC Mechanic": {
+        "type": "Scareware/PUP",
+        "detection": ['PC Mechanic', 'PCMechanic'],
+        "reason": "Fake optimizer showing false errors to scare users into purchasing. No real optimization benefits. Classic scareware.",
+    },
+    "WinZip Driver Updater": {
+        "type": "PUP/Scareware",
+        "detection": ['WinZip Driver Updater', 'winzipdu'],
+        "reason": "Misleading driver updater showing false problems. Pushes unnecessary driver updates and paid version.",
+    },
+    "PC Health Advisor": {
+        "type": "Scareware/PUP",
+        "detection": ['PC Health Advisor', 'PcHealthAdvisor'],
+        "reason": "Fake system optimizer displaying fabricated issues. Designed to scare users into paying for unnecessary fixes.",
+    },
+    "MacKeeper": {
+        "type": "Scareware/PUP",
+        "detection": ['MacKeeper', 'mackeeper'],
+        "reason": "Controversial Mac cleaner with aggressive marketing. Shows exaggerated issues to push sales. Often considered scareware.",
+    },
+    "Smart PC Care": {
+        "type": "Scareware/PUP",
+        "detection": ['Smart PC Care', 'smartpccare'],
+        "reason": "Fake optimization tool showing false registry errors and system issues. Demands payment for 'fixes'.",
+    },
+    
+    # Duplicate/Redundant Cleaners
+    "Wise Disk Cleaner": {
+        "type": "Redundant Utility",
+        "detection": ['Wise Disk Cleaner', 'WiseCleaner'],
+        "reason": "Disk cleaner redundant with Windows built-in tools. Minimal benefit over native Disk Cleanup.",
+    },
+    "Glary Utilities": {
+        "type": "Redundant Utility/PUP",
+        "detection": ['Glary Utilities', 'GlaryUtilities'],
+        "reason": "System utility suite with questionable benefits. Many features duplicate Windows built-in tools. Often bundled with other software.",
+    },
+    "Auslogics Disk Defrag": {
+        "type": "Redundant Utility",
+        "detection": ['Auslogics Disk Defrag', 'auslogics defrag'],
+        "reason": "Defragmentation tool obsolete for modern SSDs and Windows has built-in defrag scheduler. Can harm SSDs if misused.",
+    },
+    "IObit Smart Defrag": {
+        "type": "Redundant Utility/PUP",
+        "detection": ['IObit Smart Defrag', 'SmartDefrag'],
+        "reason": "Another defragmentation tool redundant with Windows features. Potentially harmful for SSDs. IObit software often bundles additional unwanted programs.",
+    },
+    
+    # Adware Injectors
+    "Superfish": {
+        "type": "Adware/Security Risk",
+        "detection": ['Superfish', 'VisualDiscovery'],
+        "reason": "Notorious adware that breaks HTTPS security by installing root certificates. Injects ads into webpages. Major security vulnerability discovered in 2015.",
+    },
+    "Genieo": {
+        "type": "Adware/Mac",
+        "detection": ['Genieo', 'InstallMac'],
+        "reason": "Mac adware that hijacks browsers. Changes homepage and search settings. Displays intrusive advertisements.",
+    },
+    "Wajam": {
+        "type": "Adware",
+        "detection": ['Wajam', 'WajIntEnhance'],
+        "reason": "Adware that injects sponsored links into search results and webpages. Tracks browsing habits for advertising.",
+    },
+    "Shopper Pro": {
+        "type": "Adware",
+        "detection": ['Shopper Pro', 'ShopperPro'],
+        "reason": "Advertising program showing coupons and deals. Tracks browsing behavior and displays intrusive pop-ups.",
+    },
+    
+    # Torrent Clients with Bundleware
+    "BitTorrent (with ads)": {
+        "type": "PUP/Bundleware",
+        "detection": ['BitTorrent Inc', 'bittorrent.exe'],
+        "reason": "While BitTorrent itself is legitimate, official versions now include ads, cryptocurrency mining offers, and bundled software. Better alternatives exist (qBittorrent).",
+    },
+    "uTorrent (modern versions)": {
+        "type": "PUP/Bundleware",
+        "detection": ['uTorrent', 'utorrent', 'BitTorrent Inc'],
+        "reason": "Modern versions include ads, bundled offers, and controversially tested cryptocurrency mining. Privacy concerns. Older versions or alternatives recommended.",
+    },
+    
+    # Download Managers with Bundleware
+    "Download Accelerator Plus": {
+        "type": "PUP/Bundleware",
+        "detection": ['Download Accelerator Plus', 'DAP', 'SpeedBit'],
+        "reason": "Download manager known for bundling toolbars and adware. Aggressive upselling. Modern browsers make it unnecessary.",
+    },
+    "Internet Download Manager (cracked)": {
+        "type": "Piracy/Malware Risk",
+        "detection": ['IDM Crack', 'Internet Download Manager Crack'],
+        "reason": "Cracked software containing high malware risk. Legitimate IDM is paid software; cracked versions often contain trojans, keyloggers, or ransomware.",
+    },
+    
+    # Fake Antivirus
+    "Windows Security Alert": {
+        "type": "Fake Antivirus",
+        "detection": ['Windows Security Alert', 'WinSecurityAlert'],
+        "reason": "Fake antivirus masquerading as Windows Security. Shows false threats to scare users into paying. Actually malware.",
+    },
+    "Windows Defence Unit": {
+        "type": "Fake Antivirus",
+        "detection": ['Windows Defence Unit', 'WinDefenceUnit'],
+        "reason": "Rogue security software showing fake virus alerts. Demands payment to remove non-existent threats. It IS the malware.",
+    },
+    "Live Security Platinum": {
+        "type": "Fake Antivirus",
+        "detection": ['Live Security Platinum', 'LSPlatinum'],
+        "reason": "Notorious fake antivirus. Displays fake scan results and blocks legitimate programs. Scareware demanding payment.",
+    },
+    
+    # Outdated/Vulnerable Software (Security Risk)
+    "Adobe Flash Player": {
+        "type": "Deprecated/Security Risk",
+        "detection": ['Adobe Flash Player', 'Flash Player', 'flashplayer'],
+        "reason": "DEPRECATED since December 2020. Major security vulnerability. All major browsers removed support. Must be uninstalled immediately for security.",
+    },
+    "Java (old versions)": {
+        "type": "Security Risk",
+        "detection": ['Java 6', 'Java 7', 'Java 1.6', 'Java 1.7', 'jre1.6', 'jre1.7', 'jdk1.6', 'jdk1.7', 'jre-6', 'jre-7'],
+        "reason": "Outdated Java versions with known critical security vulnerabilities. If Java is needed, update to latest version immediately.",
+    },
+    "Internet Explorer": {
+        "type": "Deprecated/Security Risk",
+        "detection": ['Internet Explorer 11', 'Internet Explorer', 'IE11'],
+        "reason": "Deprecated browser retired June 2022. No longer receives security updates. Vulnerable to exploits. Use Edge, Chrome, or Firefox instead.",
+    },
+    
+    # System Performance Killers
+    "Chrome Remote Desktop (unused)": {
+        "type": "Redundant Utility",
+        "detection": ['Chrome Remote Desktop', 'remoting_host'],
+        "reason": "Remote desktop service running in background. If not actively used, wastes system resources. Consider Windows built-in Remote Desktop.",
+    },
+    "Google Update Service": {
+        "type": "Bloatware/Resource Hog",
+        "detection": ['Google Update', 'GoogleUpdate'],
+        "reason": "Background service constantly checking for updates. Modern Chrome has built-in update mechanism. Redundant process consuming resources.",
+    },
+    "Adobe Genuine Service": {
+        "type": "Bloatware",
+        "detection": ['Adobe Genuine Service', 'AdobeGenuineService', 'AGSService'],
+        "reason": "Adobe validation service checking for pirated software. Runs in background even if you have legitimate licenses. Resource waste and privacy concern.",
+    },
 }
 
 
