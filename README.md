@@ -17,18 +17,18 @@ Una herramienta potente y agresiva para eliminar software no deseado, bloatware,
 ### 🎨 VERSIÓN 3.0 - THEMED EDITIONS
 - ✅ **5 TEMAS VISUALES PROFESIONALES**: Cyberpunk 2077, PS5, Xbox 360, GTA 6, Matrix
 - ✅ **INTERNACIONALIZACIÓN COMPLETA**: Español Latino + English con selector en GUI
-- ✅ **BASE DE DATOS EXPANDIDA**: 226 → 310 entradas (+37% más software)
+- ✅ **BASE DE DATOS EXPANDIDA**: 226 → 437 entradas (+93% más software)
 - ✅ **MODULAR Y PROFESIONAL**: Diseño listo para comercialización
 - ✅ **CÓDIGO OPTIMIZADO**: Comentarios reducidos, estructura mejorada
 
 ### Características V3.0
 - 🎨 **5 temas únicos inspirados en videojuegos**: Cada uno con diseño profesional completo
 - 🌍 **Soporte bilingüe**: Español Latino e Inglés con cambio en tiempo real
-- 📊 **84 programas nuevos**: Total de 310 entradas detectables
+- 📊 **211 programas nuevos**: Total de 437 entradas detectables
 - 🚀 **Lanzadores independientes**: Un archivo .py por cada tema
 - 💎 **Calidad profesional**: Diseños pulidos y listos para venta
 
-### Base de Datos Expandida (310 Entradas)
+### Base de Datos Expandida (437 Entradas)
 
 Cada entrada incluye:
 - **Nombre del software**
@@ -36,13 +36,22 @@ Cada entrada incluye:
 - **Patrones de detección** (nombres, publicadores, paquetes)
 - **Razón detallada** explicando por qué es problemático
 
-#### Categorías Incluidas (310 entradas totales):
+#### Categorías Incluidas (437 entradas totales):
 - **Bloatware de Windows**: Apps preinstaladas innecesarias (3D Viewer, Paint 3D, etc.)
 - **Juegos y Adware**: Candy Crush, Farm Heroes, Roblox, Disney Magic Kingdoms, etc.
 - **Redes Sociales**: TikTok, Facebook, Instagram, Twitter, etc.
 - **Streaming**: Netflix, Prime Video, Spotify, etc.
 - **Antivirus Agresivo**: McAfee, Norton, Avast, AVG, Avira, Bitdefender, etc.
 - **Antivirus Falso/Rogue**: Segurazo, SpyHunter, Windows Malware Defender, Antimalware Doctor, etc.
+- **🆕 HP Bloatware Expandido**: HP ePrint, HP Games, HP Documentation, HP Sure Click/Sense, HP Velocity, etc.
+- **🆕 Dell Bloatware Expandido**: Dell Data Vault, Dell Power Manager, Dell CinemaColor, Dell Foundation Services, etc.
+- **🆕 Lenovo Bloatware Expandido**: Lenovo REACHit, Lenovo PowerDVD, Lenovo Photo Master, Lenovo QuickCast, etc.
+- **🆕 ASUS Bloatware Expandido**: ASUS WebStorage, ASUS Splendid, ASUS Vibe, ASUS AI Suite, ASUS Gaming Center, etc.
+- **🆕 Acer Bloatware**: Acer Quick Access, abPhoto, abFiles, abDocs, Acer BYOC Apps, etc.
+- **🆕 Toshiba Bloatware**: TOSHIBA Service Station, Bulletin Board, Face Recognition, ConfigFree, etc.
+- **🆕 MSI Bloatware**: MSI Center, MSI True Color, Nahimic Audio, MSI BurnRecovery, etc.
+- **🆕 Sony VAIO Bloatware**: VAIO Control Center, VAIO Media Plus, PlayMemories Home, etc.
+- **🆕 Browser Hijackers Expandido**: Snap.do, Sweet Page, Delta Toolbar, RocketTab, VSearch, CoolWebSearch, etc.
 - **Optimizadores Falsos**: CCleaner, Advanced SystemCare, PC Speed Up, MyCleanPC, iolo, etc.
 - **Limpiadores de Registro**: RegClean Pro, WinThruster, Wise Registry Cleaner, etc.
 - **Actualizadores de Drivers**: Driver Booster, DriverPack Solution, Driver Easy, SlimDrivers, etc.
@@ -53,6 +62,7 @@ Cada entrada incluye:
 - **Bundleware**: OpenCandy, Installcore, Amonetize, DVDVideoSoft, etc.
 - **Servicios de Terceros**: Bonjour, Adobe Update, Google Update, Java Auto Updater, etc.
 - **Software Peligroso**: KMSPico, Hola VPN, Chromium Malware, RelevantKnowledge, etc.
+- **🆕 Trial Software Expandido**: WinZip Trial, WinRAR Trial, CyberLink PowerDVD/Power2Go/PhotoDirector, Nero, Roxio, Corel, etc.
 - **🆕 Herramientas de Backup**: EaseUS, Acronis, AOMEI, Macrium, Paragon, NovaBACKUP, etc.
 - **🆕 Gestores de Particiones**: MiniTool, AOMEI Partition, EaseUS Partition, Paragon, etc.
 - **🆕 Recuperación de Datos**: Stellar, Recuva, Disk Drill, Wondershare Recoverit, R-Studio, etc.
@@ -236,18 +246,18 @@ TANKEKIT/
 
 ## 📈 Estadísticas
 
-| Métrica | V1.0 | V2.0 | V3.0 | Mejora Total |
-|---------|------|------|------|--------------|
-| Entradas en BD | 41 | 226 | **310** | **+656%** |
-| Métodos eliminación | 7 | 9 | 9 | +28% |
-| Métodos detección | 4 | 5 | 5 | +25% |
-| Verificación | No | Sí | Sí (5 puntos) | ∞ |
-| Temas visuales | 0 | 0 | **5** | **∞** |
-| Idiomas | 1 | 1 | **2** | **+100%** |
-| Archivos principales | 3 | 2 | **2+13** | Modular |
-| Sistema i18n | No | No | **Sí** | **∞** |
-| Lanzadores temáticos | 0 | 0 | **5** | **∞** |
-| Calidad visual | Básica | Buena | **Profesional** | **+++** |
+| Métrica | V1.0 | V2.0 | V3.0 | V3.1 | Mejora Total |
+|---------|------|------|------|------|--------------|
+| Entradas en BD | 41 | 226 | 310 | **437** | **+966%** |
+| Métodos eliminación | 7 | 9 | 9 | 9 | +28% |
+| Métodos detección | 4 | 5 | 5 | 5 | +25% |
+| Verificación | No | Sí | Sí (5 puntos) | Sí (5 puntos) | ∞ |
+| Temas visuales | 0 | 0 | 5 | 5 | ∞ |
+| Idiomas | 1 | 1 | 2 | 2 | +100% |
+| Archivos principales | 3 | 2 | 2+13 | 2+13 | Modular |
+| Sistema i18n | No | No | Sí | Sí | ∞ |
+| Lanzadores temáticos | 0 | 0 | 5 | 5 | ∞ |
+| Calidad visual | Básica | Buena | Profesional | Profesional | +++ |
 
 ## 🐛 Problemas Conocidos
 
@@ -294,6 +304,6 @@ Este software se proporciona "tal cual" sin garantías de ningún tipo. Los auto
 
 **Desarrollado con ❤️ para limpiar Windows de bloatware**
 
-**Versión**: 3.0 (Themed Editions + i18n + Base de Datos Expandida)  
+**Versión**: 3.1 (OEM Bloatware Research + Trial Software + Toolbars Expandidos)  
 **Última actualización**: Enero 2025  
-**5 Temas Únicos | 2 Idiomas | 310 Programas | Listo para Venta**
+**5 Temas Únicos | 2 Idiomas | 437 Programas | +127 Nuevas Entradas | Listo para Venta**
