@@ -44,3 +44,4 @@ Thumbs.db
 *.tmp
 *.bak
 bloatware_remover_temp.py
+test_progress_dialog.py
