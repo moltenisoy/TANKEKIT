@@ -4,7 +4,7 @@ import os
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 from bloatware_remover import *
-from theme_ps5 import get_ps5_style
+from themes import get_ps5_style
 from i18n import i18n
 
 class PS5UninstallerApp(UninstallerApp):

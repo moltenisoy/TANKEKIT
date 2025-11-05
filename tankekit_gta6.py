@@ -4,7 +4,7 @@ import os
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 from bloatware_remover import *
-from theme_gta6 import get_gta6_style
+from themes import get_gta6_style
 from i18n import i18n
 
 class GTA6UninstallerApp(UninstallerApp):
