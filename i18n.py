@@ -29,6 +29,7 @@ TRANSLATIONS = {
         "permission_error": "Error de Permisos",
         "admin_required": "Se requieren privilegios de administrador para ejecutar esta aplicación.",
         "language": "Idioma",
+        "theme": "Tema",
         "spanish": "Español",
         "english": "English"
     },
@@ -60,6 +61,7 @@ TRANSLATIONS = {
         "permission_error": "Permission Error",
         "admin_required": "Administrator privileges are required to run this application.",
         "language": "Language",
+        "theme": "Theme",
         "spanish": "Español",
         "english": "English"
     }
@@ -73,10 +75,13 @@ class I18n:
         if language in TRANSLATIONS:
             self.language = language
     
-    def get(self, key, **kwargs):
-        text = TRANSLATIONS.get(self.language, TRANSLATIONS["es"]).get(key, key)
+    def get(self, key, default=None, **kwargs):
+        text = TRANSLATIONS.get(self.language, TRANSLATIONS["es"]).get(key, default or key)
         if kwargs:
-            text = text.format(**kwargs)
+            try:
+                text = text.format(**kwargs)
+            except KeyError:
+                pass  # If format kwargs don't match, return text as-is
         return text
 
 i18n = I18n("es")
