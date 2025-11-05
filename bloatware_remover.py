@@ -5,8 +5,6 @@ Main application with GUI and uninstallation logic
 Refactored and improved version with enhanced detection and removal capabilities
 """
 
-# -*- coding: utf-8 -*-
-
 import sys
 import os
 import winreg
@@ -69,124 +67,6 @@ logging.getLogger().addHandler(console_handler)
 # Import bloatware database
 from bloatware_database import TARGET_SOFTWARE
 
-# Old TARGET_SOFTWARE replaced by import
-_OLD_TARGET_SOFTWARE_REMOVED = {
-    "3D Viewer": {"type": "Bloatware", "detection": ["Microsoft.Microsoft3DViewer"]},
-    "Paint 3D": {"type": "Bloatware", "detection": ["Microsoft.MSPaint"]},
-    "Print 3D": {"type": "Bloatware", "detection": ["Microsoft.Print3D"]},
-    "Mixed Reality Portal": {"type": "Bloatware", "detection": ["Microsoft.MixedReality.Portal"]},
-    "Clipchamp": {"type": "Bloatware", "detection": ["Clipchamp", "Microsoft.Clipchamp"]},
-    "Adobe Express": {"type": "Bloatware", "detection": ["Adobe Express", "AdobeSystemsIncorporated.AdobeExpress"]},
-    "Candy Crush Saga": {"type": "Adware/Juego", "detection": ["king.com.CandyCrushSaga", "Candy Crush Saga"]},
-    "Candy Crush Soda Saga": {"type": "Adware/Juego", "detection": ["king.com.CandyCrushSodaSaga", "Candy Crush Soda Saga"]},
-    "Candy Crush Friends Saga": {"type": "Adware/Juego", "detection": ["king.com.CandyCrushFriendsSaga", "Candy Crush Friends Saga"]},
-    "FarmVille 2: Country Escape": {"type": "Adware/Juego", "detection": ["ZyngaInc.FarmVille2CountryEscape", "FarmVille 2"]},
-    "Hidden City: Hidden Object": {"type": "Adware/Juego", "detection": ["G5EntertainmentAB.HiddenCityHiddenObjectAdventure", "Hidden City"]},
-    "Bubble Witch 3 Saga": {"type": "Adware/Juego", "detection": ["king.com.BubbleWitch3Saga", "Bubble Witch 3 Saga"]},
-    "Asphalt 8: Airborne": {"type": "Adware/Juego", "detection": ["GAMELOFTSA.Asphalt8Airborne", "Asphalt 8"]},
-    "Age of Empires: Castle Siege": {"type": "Bloatware", "detection": ["Microsoft.AgeofEmpiresCastleSiege", "Age of Empires: Castle Siege"]},
-    "Minecraft": {"type": "Bloatware", "detection": ["Microsoft.MinecraftUWP", "Minecraft for Windows"]},
-    "Microsoft Solitaire Collection": {"type": "Adware/Juego", "detection": ["Microsoft.MicrosoftSolitaireCollection"]},
-    "Roblox": {"type": "Adware/Juego", "detection": ["ROBLOXCORPORATION.ROBLOX", "Roblox"]},
-    "TikTok": {"type": "Bloatware", "detection": ["ByteDancePte.Ltd.TikTok", "TikTok"]},
-    "Instagram": {"type": "Bloatware", "detection": ["Facebook.InstagramBeta", "Instagram"]},
-    "Facebook": {"type": "Bloatware", "detection": ["Facebook.Facebook", "Facebook"]},
-    "Twitter": {"type": "Bloatware", "detection": ["9E2F88E3.Twitter", "Twitter"]},
-    "Netflix": {"type": "Bloatware", "detection": ["Netflix.Netflix", "Netflix"]},
-    "Prime Video": {"type": "Bloatware", "detection": ["AmazonVideo.PrimeVideo", "Prime Video"]},
-    "Spotify": {"type": "Bloatware", "detection": ["SpotifyAB.SpotifyMusic", "Spotify"]},
-    "Farm Heroes Saga": {"type": "Adware/Juego", "detection": ["king.com.FarmHeroesSaga", "Farm Heroes Saga"]},
-    "Duolingo": {"type": "Bloatware", "detection": ["Duolingo.Duolingo-LearnLanguagesforFree", "Duolingo"]},
-    "World of Tanks Blitz": {"type": "Bloatware", "detection": ["WargamingGroupLimited.WorldofTanksBlitz", "World of Tanks Blitz"]},
-    "Disney Magic Kingdoms": {"type": "Adware/Juego", "detection": ["GAMELOFTSA.DisneyMagicKingdoms", "Disney Magic Kingdoms"]},
-    "Microsoft News": {"type": "Bloatware", "detection": ["Microsoft.BingNews", "Noticias"]},
-    "Tiempo": {"type": "Bloatware", "detection": ["Microsoft.BingWeather"]},
-    "Cortana": {"type": "Spyware", "detection": ["Microsoft.549981C3F5F10"]},
-    "OneDrive": {"type": "Bloatware", "detection": ["OneDrive", "Microsoft OneDrive"]},
-    "Microsoft Teams": {"type": "Bloatware", "detection": ["Microsoft Teams", "Teams Machine-Wide Installer"]},
-    "OneNote": {"type": "Bloatware", "detection": ["Microsoft.Office.OneNote"]},
-    "Xbox Game Bar": {"type": "Bloatware", "detection": ["Microsoft.XboxGamingOverlay"]},
-    "Xbox Console Companion": {"type": "Bloatware", "detection": ["Microsoft.XboxApp"]},
-    "Your Phone": {"type": "Bloatware", "detection": ["Microsoft.YourPhone", "Enlace Móvil", "Phone Link"]},
-    "Consejos": {"type": "Bloatware", "detection": ["Microsoft.Getstarted", "Microsoft Tips"]},
-    "Feedback Hub": {"type": "Bloatware", "detection": ["Microsoft.WindowsFeedbackHub", "Centro de opiniones"]},
-    "McAfee": {"type": "Trial AV", "detection": ["McAfee", "McAfee Security Scan Plus"]},
-    "Norton": {"type": "Trial AV", "detection": ["Norton", "Symantec"]},
-    "Microsoft Office": {"type": "Trialware", "detection": ["Microsoft Office 365", "Microsoft 365"]},
-    "WinZip": {"type": "Bloatware", "detection": ["WinZip"]},
-    "WPS Office": {"type": "Bloatware", "detection": ["WPS Office"]},
-    "Dropbox": {"type": "Bloatware", "detection": ["Dropbox OEM"]},
-    "Evernote": {"type": "Bloatware", "detection": ["Evernote OEM"]},
-    "WildTangent Games": {"type": "Bloatware", "detection": ["WildTangent"]},
-    "CyberLink": {"type": "Bloatware", "detection": ["CyberLink"]},
-    "Roxio": {"type": "Bloatware", "detection": ["Roxio"]},
-    "Nero": {"type": "Bloatware", "detection": ["Nero"]},
-    "HP Support Assistant": {"type": "Bloatware", "detection": ["HP Support Assistant"]},
-    "HP JumpStart": {"type": "Bloatware", "detection": ["HP JumpStart"]},
-    "HP Audio Switch": {"type": "Bloatware", "detection": ["HP Audio Switch"]},
-    "HP Connection Optimizer": {"type": "Bloatware", "detection": ["HP Connection Optimizer"]},
-    "HP Command Center": {"type": "Bloatware", "detection": ["HP Command Center", "OMEN Command Center"]},
-    "HP Touchpoint Analytics": {"type": "Spyware", "detection": ["HP Touchpoint Analytics Client"]},
-    "Dell SupportAssist": {"type": "Bloatware", "detection": ["Dell SupportAssist"]},
-    "Dell Update": {"type": "Bloatware", "detection": ["Dell Update", "Dell Digital Delivery"]},
-    "Dell Customer Connect": {"type": "Bloatware", "detection": ["Dell Customer Connect"]},
-    "Dell Mobile Connect": {"type": "Bloatware", "detection": ["Dell Mobile Connect"]},
-    "Lenovo Vantage": {"type": "Utility", "detection": ["Lenovo Vantage"]},
-    "Lenovo Solution Center": {"type": "Bloatware", "detection": ["Lenovo Solution Center"]},
-    "Lenovo Accelerator": {"type": "Bloatware/Vuln", "detection": ["Lenovo Accelerator Application"]},
-    "Lenovo App Explorer": {"type": "Bloatware", "detection": ["Lenovo App Explorer"]},
-    "ASUS GiftBox": {"type": "Bloatware", "detection": ["ASUS GiftBox", "ASUS AppDeals"]},
-    "ASUS Live Update": {"type": "Bloatware/Vuln", "detection": ["ASUS Live Update"]},
-    "MyASUS": {"type": "Bloatware", "detection": ["MyASUS", "ASUS System Control Interface"]},
-    "Acer Care Center": {"type": "Bloatware", "detection": ["Acer Care Center"]},
-    "Acer Product Registration": {"type": "Bloatware", "detection": ["Acer Product Registration"]},
-    "Acer Portal": {"type": "Bloatware", "detection": ["Acer BYOC Apps", "abDocs", "abFiles"]},
-    "MSI Dragon Center": {"type": "Bloatware", "detection": ["MSI Dragon Center"]},
-    "MSI App Player": {"type": "Bloatware", "detection": ["MSI App Player"]},
-    "Samsung Settings": {"type": "Bloatware", "detection": ["Samsung Settings", "Samsung Update"]},
-    "VAIO Care": {"type": "Bloatware", "detection": ["VAIO Care", "VAIO Control Center"]},
-    "Ask Toolbar": {"type": "Adware/Toolbar", "detection": ["Ask Toolbar", "Updater by Ask", "Ask.com"]},
-    "MyWay": {"type": "Adware/Browser Hijacker", "detection": ["MyWay", "MindSpark"]},
-    "Conduit": {"type": "Adware/Hijacker", "detection": ["Conduit", "Search Protect"]},
-    "SweetIM": {"type": "Adware/Spyware", "detection": ["SweetIM"]},
-    "RelevantKnowledge": {"type": "Spyware", "detection": ["RelevantKnowledge"]},
-    "DealPly": {"type": "Adware", "detection": ["DealPly"]},
-    "Snap.do": {"type": "Browser Hijacker", "detection": ["Snap.do"]},
-    "Funmoods": {"type": "Adware/Hijacker", "detection": ["Funmoods"]},
-    "Yontoo": {"type": "Adware", "detection": ["Yontoo"]},
-    "Crossrider": {"type": "Adware Platform", "detection": ["Crossrider"]},
-    "Babylon": {"type": "Adware/Hijacker", "detection": ["Babylon"]},
-    "Delta Search": {"type": "Adware/Hijacker", "detection": ["Delta Search"]},
-    "Spigot": {"type": "Adware", "detection": ["Spigot"]},
-    "Segurazo": {"type": "Rogue AV", "detection": ["Segurazo", "SAntivirus"]},
-    "SpyHunter": {"type": "PUP/Rogue", "detection": ["SpyHunter"]},
-    "Advanced SystemCare": {"type": "PUP/Optimizador", "detection": ["Advanced SystemCare"]},
-    "Driver Booster": {"type": "PUP/Driver Updater", "detection": ["Driver Booster"]},
-    "DriverPack Solution": {"type": "Adware/Bundle", "detection": ["DriverPack Solution", "DriverPack Notifier"]},
-    "Driver Easy": {"type": "PUP/Driver Updater", "detection": ["Driver Easy"]},
-    "SlimDrivers": {"type": "PUP/Driver Updater", "detection": ["SlimDrivers"]},
-    "Slimware Utilities": {"type": "PUP/Optimizer", "detection": ["Slimware Utilities", "DriverUpdate"]},
-    "WinZip Driver Updater": {"type": "PUP/Driver Updater", "detection": ["WinZip Driver Updater"]},
-    "PC Accelerate Pro": {"type": "PUP/Optimizer", "detection": ["PC Accelerate Pro"]},
-    "PC Speed Up": {"type": "PUP/Optimizer", "detection": ["PC Speed Up", "PC Optimizer Pro"]},
-    "OneSafe PC Cleaner": {"type": "PUP/Optimizer", "detection": ["OneSafe PC Cleaner"]},
-    "Advanced System Protector": {"type": "PUP/AntiSpyware", "detection": ["Advanced System Protector"]},
-    "RegClean Pro": {"type": "PUP/Registry Cleaner", "detection": ["RegClean Pro"]},
-    "Reimage Repair": {"type": "PUP/Scareware", "detection": ["Reimage Repair"]},
-    "Restoro": {"type": "PUP/Scareware", "detection": ["Restoro"]},
-    "Outbyte PC Repair": {"type": "PUP/Scareware", "detection": ["Outbyte PC Repair"]},
-    "TotalAV": {"type": "PUP/Antivirus", "detection": ["TotalAV", "PC Protect"]},
-    "Driver Support": {"type": "PUP/Driver Updater", "detection": ["Driver Support", "Asurvio"]},
-    "Hola VPN": {"type": "Adware/P2P", "detection": ["Hola VPN"]},
-    "KMSPico": {"type": "HackTool/Troyano", "detection": ["KMSPico", "KMSpico Portable"]},
-    "CCleaner": {"type": "Useless/Risky", "detection": ["CCleaner", "Piriform", "ccsetup"]},
-    "Armoury Crate": {"type": "Bloatware/Persistent", "detection": ["Armoury Crate", "ArmouryCrateInstaller"]},
-    "Microsoft Photos": {"type": "Bloatware", "detection": ["Microsoft.Windows.Photos", "Microsoft Photos"]},
-    "Mail and Calendar": {"type": "Bloatware", "detection": ["microsoft.windowscommunicationsapps", "Mail and Calendar", "Correo y Calendario"]},
-}
-
-# Use imported TARGET_SOFTWARE from bloatware_database module
-
 
 def is_admin():
     """ Comprueba si el script se ejecuta con privilegios de administrador """
@@ -236,7 +116,7 @@ def matches_target(display_name, publisher, detection_terms):
     return False
 
 def get_registry_value(key, subkey_name, value_name):
-    """ Obtiene un valor específico del registro, manejando errores """
+    """Get a specific registry value, handling errors gracefully"""
     try:
         with winreg.OpenKey(key, subkey_name) as subkey_handle:
             value, reg_type = winreg.QueryValueEx(subkey_handle, value_name)
@@ -244,10 +124,10 @@ def get_registry_value(key, subkey_name, value_name):
     except FileNotFoundError:
         return None
     except OSError as e:
-        logging.warning(f"Error OS al leer registro {winreg.HKEY_NAMES.get(key.handle, key.handle)}\\{subkey_name}\\{value_name}: {e}")
+        logging.warning(f"Error OS al leer registro {subkey_name}\\{value_name}: {e}")
         return None
     except Exception as e:
-        logging.error(f"Error inesperado al leer registro {winreg.HKEY_NAMES.get(key.handle, key.handle)}\\{subkey_name}\\{value_name}: {e}")
+        logging.error(f"Error inesperado al leer registro {subkey_name}\\{value_name}: {e}")
         return None
 
 def delete_registry_key_recursive(root_hive, key_path, view=0):
@@ -1057,10 +937,20 @@ class Worker(QThread):
         try:
             # Use Windows MoveFileEx with MOVEFILE_DELAY_UNTIL_REBOOT flag
             # via a batch script that runs on startup
-            startup_folder = Path(os.environ.get('APPDATA')) / 'Microsoft' / 'Windows' / 'Start Menu' / 'Programs' / 'Startup'
-            batch_file = startup_folder / f'cleanup_{app_name.replace(" ", "_")[:30]}.bat'
+            # Sanitize app_name and install_location to prevent command injection
+            safe_app_name = re.sub(r'[^a-zA-Z0-9_\- ]', '', app_name.replace(" ", "_"))[:30]
+            if not install_location or any(char in install_location for char in ['&', '|', ';', '\n', '\r', '>', '<']):
+                logging.warning(f"[{app_name}] install_location contiene caracteres peligrosos o está vacío")
+                return False
             
-            batch_content = f'@echo off\nREM Cleanup script for {app_name}\necho Eliminando restos de {app_name}...\ntimeout /t 5 /nobreak > nul\nrd /s /q "{install_location}" 2>nul\ndel /f /q "{install_location}" 2>nul\ndel "%~f0"\n'
+            startup_folder = Path(os.environ.get('APPDATA')) / 'Microsoft' / 'Windows' / 'Start Menu' / 'Programs' / 'Startup'
+            batch_file = startup_folder / f'cleanup_{safe_app_name}.bat'
+            
+            # Use safe variables without embedding user-controlled input directly
+            batch_content = '@echo off\nREM Cleanup script\necho Eliminando archivos...\ntimeout /t 5 /nobreak > nul\n'
+            batch_content += f'rd /s /q "{install_location}" 2>nul\n'
+            batch_content += f'del /f /q "{install_location}" 2>nul\n'
+            batch_content += 'del "%~f0"\n'
             
             with open(batch_file, 'w', encoding='utf-8') as f:
                 f.write(batch_content)
@@ -1351,9 +1241,10 @@ class UninstallerApp(QWidget):
     def initUI(self):
         self.setWindowTitle('Desinstalador Agresivo de Software')
         
-        # --- LÍNEA QUE DEBES AGREGAR ---
-        self.setWindowIcon(QIcon('1.ico'))
-        # -------------------------------
+        # Set window icon if available
+        icon_path = Path(__file__).parent / 'app_icon.ico'
+        if icon_path.exists():
+            self.setWindowIcon(QIcon(str(icon_path)))
 
         self.setGeometry(200, 200, 800, 600)
 
