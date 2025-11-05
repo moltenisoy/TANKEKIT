@@ -661,9 +661,9 @@ TARGET_SOFTWARE = {
     },
     "Chromium Malware Variants": {
         "type": "Malware/Fake Browser",
-        "detection": ["Chromium", "Chrome Update", "Chromium Browser"],
-        "reason": "Fake Chromium browsers bundled with malware. Not the legitimate Chromium. Changes browser settings, shows ads, tracks data.",
-        "files": ["C:\\Users\\*\\AppData\\Local\\Chromium", "C:\\Program Files (x86)\\Chromium"],
+        "detection": ["Chromium Browser Malware", "Fake Chrome Update", "Chromium Virus"],
+        "reason": "Fake Chromium browsers bundled with malware. Not the legitimate Chromium. Changes browser settings, shows ads, tracks data. NOTE: This targets only malicious variants found in suspicious locations, not legitimate Chromium installations.",
+        "files": ["C:\\Users\\*\\AppData\\Local\\Chromium\\Application\\chrome.exe"],
         "registry": ["HKCU\\SOFTWARE\\Chromium"],
         "services": []
     },
@@ -1252,9 +1252,9 @@ TARGET_SOFTWARE = {
         "services": []
     },
     "Calculator": {
-        "type": "Debatable Bloatware",
+        "type": "Core Utility (Optional)",
         "detection": ["Microsoft.WindowsCalculator"],
-        "reason": "Windows Calculator. Some users prefer third-party calculators with more features. Optional removal.",
+        "reason": "Windows Calculator. CORE UTILITY - Only remove if you have a preferred alternative. Most users should keep this. Only included for advanced users who want complete control.",
         "files": [],
         "registry": [],
         "services": []

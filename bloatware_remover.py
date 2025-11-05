@@ -190,6 +190,11 @@ class SpinningWheel(QWidget):
         self.timer.timeout.connect(self.rotate)
         self.timer.start(50)  # Actualizar cada 50ms
     
+    def __del__(self):
+        """Cleanup: detener el timer al destruir el widget"""
+        if hasattr(self, 'timer') and self.timer:
+            self.timer.stop()
+    
     def rotate(self):
         """Rota la rueda"""
         self.angle = (self.angle + 10) % 360
@@ -246,8 +251,21 @@ class CustomProgressDialog(QDialog):
         self.setLayout(layout)
     
     def closeEvent(self, event):
-        """Prevenir cierre accidental"""
-        event.ignore()
+        """Prevenir cierre accidental del usuario, permitir cierre programático"""
+        # Permitir cierre programático (cuando se llama a close() desde el código)
+        # pero ignorar intentos del usuario de cerrar la ventana
+        if not hasattr(self, '_allow_close'):
+            self._allow_close = False
+        
+        if self._allow_close:
+            event.accept()
+        else:
+            event.ignore()
+    
+    def close(self):
+        """Override close para permitir cierre programático"""
+        self._allow_close = True
+        super().close()
 
 
 class Worker(QThread):
@@ -1364,7 +1382,8 @@ class UninstallerApp(QWidget):
 
     def update_progress(self, value, message):
         # El diálogo personalizado siempre muestra "Trabajando..."
-        # Ignoramos el mensaje específico para mantener consistencia
+        # value y message se ignoran intencionalmente para mantener consistencia
+        # con el diseño de UI que muestra solo "Trabajando..." sin detalles
         if self.custom_progress_dialog and self.custom_progress_dialog.isVisible():
             QApplication.processEvents()
 
@@ -1473,7 +1492,8 @@ class UninstallerApp(QWidget):
 
     def update_removal_progress(self, value, message):
         # El diálogo personalizado siempre muestra "Trabajando..."
-        # Ignoramos el mensaje específico para mantener consistencia
+        # value y message se ignoran intencionalmente para mantener consistencia
+        # con el diseño de UI que muestra solo "Trabajando..." sin detalles
         if self.custom_progress_dialog and self.custom_progress_dialog.isVisible():
             QApplication.processEvents()
 
