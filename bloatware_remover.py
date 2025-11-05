@@ -179,16 +179,16 @@ def handle_shutil_error(func, path, excinfo):
 
 
 class SpinningWheel(QWidget):
-    """Widget que muestra una rueda giratoria animada"""
+    """Widget que muestra una rueda giratoria animada mejorada"""
     def __init__(self, parent=None):
         super().__init__(parent)
         self.angle = 0
-        self.setFixedSize(40, 40)
+        self.setFixedSize(60, 60)
         
-        # Timer para animar la rueda
+        # Timer para animar la rueda - más suave con 30ms
         self.timer = QTimer(self)
         self.timer.timeout.connect(self.rotate)
-        self.timer.start(50)  # Actualizar cada 50ms
+        self.timer.start(30)
     
     def __del__(self):
         """Cleanup: detener el timer al destruir el widget"""
@@ -196,49 +196,58 @@ class SpinningWheel(QWidget):
             self.timer.stop()
     
     def rotate(self):
-        """Rota la rueda"""
-        self.angle = (self.angle + 10) % 360
+        """Rota la rueda - incremento más suave"""
+        self.angle = (self.angle + 8) % 360
         self.update()
     
     def paintEvent(self, event):
-        """Dibuja la rueda giratoria"""
+        """Dibuja la rueda giratoria con diseño mejorado"""
         painter = QPainter(self)
         painter.setRenderHint(QPainter.Antialiasing)
         
-        # Centro del widget
         center_x = self.width() // 2
         center_y = self.height() // 2
-        radius = 15
+        radius = 22
         
-        # Dibujar círculo de fondo
-        painter.setPen(QPen(QColor(200, 200, 200), 2))
+        # Dibujar círculo de fondo con transparencia
+        painter.setPen(QPen(QColor(220, 220, 220, 100), 3))
         painter.drawEllipse(center_x - radius, center_y - radius, radius * 2, radius * 2)
         
-        # Dibujar segmento animado
-        painter.setPen(QPen(QColor(0, 120, 215), 4))
-        painter.drawArc(center_x - radius, center_y - radius, radius * 2, radius * 2, 
-                       self.angle * 16, 120 * 16)
+        # Dibujar múltiples arcos para efecto más dinámico
+        colors = [
+            (QColor(0, 120, 215), 140),
+            (QColor(30, 150, 230), 100),
+            (QColor(60, 180, 245), 70)
+        ]
+        
+        for i, (color, arc_span) in enumerate(colors):
+            offset = i * 30
+            painter.setPen(QPen(color, 4 - i))
+            painter.drawArc(center_x - radius, center_y - radius, radius * 2, radius * 2, 
+                           (self.angle + offset) * 16, arc_span * 16)
 
 
 class CustomProgressDialog(QDialog):
-    """Diálogo de progreso personalizado con animación de rueda giratoria"""
+    """Diálogo de progreso personalizado con animación de rueda giratoria centrada"""
     def __init__(self, parent=None):
         super().__init__(parent)
-        self.setWindowTitle("TANKEKIT")  # Sin "Python" en el título
+        self.setWindowTitle("TANKEKIT")
         self.setModal(True)
-        self.setFixedSize(350, 120)
+        self.setFixedSize(400, 150)
         
         layout = QVBoxLayout()
+        layout.setSpacing(15)
         
-        # Label de "Trabajando"
+        # Label de "Trabajando" con estilo mejorado
         self.label = QLabel("Trabajando...")
         self.label.setAlignment(Qt.AlignCenter)
         font = self.label.font()
-        font.setPointSize(12)
+        font.setPointSize(14)
+        font.setBold(True)
         self.label.setFont(font)
         layout.addWidget(self.label)
         
-        # Contenedor horizontal para la rueda giratoria
+        # Contenedor horizontal para la rueda giratoria centrada
         wheel_container = QHBoxLayout()
         wheel_container.addStretch()
         self.spinning_wheel = SpinningWheel(self)
@@ -249,6 +258,21 @@ class CustomProgressDialog(QDialog):
         layout.addStretch()
         
         self.setLayout(layout)
+        
+        # Centrar el diálogo en la pantalla
+        self.center_on_screen()
+    
+    def center_on_screen(self):
+        """Centra el diálogo en la pantalla principal"""
+        screen = QApplication.primaryScreen().geometry()
+        x = (screen.width() - self.width()) // 2
+        y = (screen.height() - self.height()) // 2
+        self.move(x, y)
+    
+    def showEvent(self, event):
+        """Re-centrar cada vez que se muestra el diálogo"""
+        super().showEvent(event)
+        self.center_on_screen()
     
     def closeEvent(self, event):
         """Prevenir cierre accidental del usuario, permitir cierre programático"""
