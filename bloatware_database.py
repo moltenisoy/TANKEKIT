@@ -2146,6 +2146,633 @@ TARGET_SOFTWARE = {
         "detection": ['Adobe Genuine Service', 'AdobeGenuineService', 'AGSService'],
         "reason": "Adobe validation service checking for pirated software. Runs in background even if you have legitimate licenses. Resource waste and privacy concern.",
     },
+    
+    # Additional HP Bloatware (Redundant/Resource-Consuming)
+    "HP ePrint": {
+        "type": "Bloatware/Redundant",
+        "detection": ['HP ePrint', 'HP ePrint Software'],
+        "reason": "REDUNDANT - HP remote printing utility. Most modern printers have built-in wireless printing. Wastes resources running in background. Windows native printing sufficient.",
+        "files": ['C:\\Program Files\\HP\\HP ePrint', 'C:\\Program Files (x86)\\HP\\HP ePrint'],
+        "registry": ['HKLM\\SOFTWARE\\HP\\ePrint'],
+    },
+    "HP Games": {
+        "type": "Bloatware/Useless",
+        "detection": ['HP Games', 'WildTangent Games HP'],
+        "reason": "USELESS - Preinstalled game launcher with trial games. No productivity value. Often includes WildTangent games with ads and in-app purchases.",
+        "files": ['C:\\Program Files\\HP Games', 'C:\\ProgramData\\HP\\HP Games'],
+    },
+    "HP Documentation": {
+        "type": "Bloatware/Obsolete",
+        "detection": ['HP Documentation', 'HP Help and Support'],
+        "reason": "OBSOLETE - Static documentation viewer. All HP documentation available online. Wastes disk space. One-time use only.",
+        "files": ['C:\\Program Files\\HP\\Documentation', 'C:\\Program Files (x86)\\HP\\Documentation'],
+    },
+    "HP Registration": {
+        "type": "Bloatware/Useless",
+        "detection": ['HP Registration', 'HP Product Registration'],
+        "reason": "USELESS - One-time registration tool. No need to keep installed after registration. Pure bloatware consuming disk space.",
+        "files": ['C:\\Program Files\\HP\\Registration'],
+    },
+    "HP Sure Click": {
+        "type": "Bloatware/Redundant",
+        "detection": ['HP Sure Click', 'HP Sure Click Pro'],
+        "reason": "REDUNDANT - HP security isolation tool. Windows Defender and Edge/Chrome sandboxing provide similar protection. Resource-intensive duplication.",
+        "files": ['C:\\Program Files\\HP\\Sure Click'],
+        "services": ['HPSureClick'],
+    },
+    "HP Sure Sense": {
+        "type": "Bloatware/Redundant",
+        "detection": ['HP Sure Sense', 'HP Sure Sense Advanced'],
+        "reason": "REDUNDANT - HP AI-based antivirus. Duplicates Windows Defender functionality. Resource hog with minimal added value.",
+        "files": ['C:\\Program Files\\HP\\Sure Sense'],
+        "services": ['HPSureSense'],
+    },
+    "HP Velocity": {
+        "type": "Bloatware/Inefficient",
+        "detection": ['HP Velocity'],
+        "reason": "INEFFICIENT - HP network optimization tool. Questionable performance improvements. May interfere with normal network operations.",
+        "files": ['C:\\Program Files\\HP\\HP Velocity'],
+    },
+    "HP Hotkey Support": {
+        "type": "Bloatware/Redundant",
+        "detection": ['HP Hotkey Support', 'HP Quick Launch'],
+        "reason": "REDUNDANT - HP keyboard shortcut manager. Windows handles most hotkeys natively. Unnecessary background process.",
+        "files": ['C:\\Program Files\\HP\\HP Hotkey Support'],
+        "services": ['HPHotkeyService'],
+    },
+    "HP System Event Utility": {
+        "type": "Bloatware/Resource-Consuming",
+        "detection": ['HP System Event Utility'],
+        "reason": "RESOURCE-CONSUMING - HP event monitoring tool. Runs constantly in background. Minimal user benefit. Duplicates Windows functionality.",
+        "services": ['HPSysEvt'],
+    },
+    "HP Wireless Button Driver": {
+        "type": "Bloatware/Obsolete",
+        "detection": ['HP Wireless Button Driver'],
+        "reason": "OBSOLETE - Driver for physical wireless toggle buttons. Modern laptops use function keys. Unnecessary on most systems.",
+    },
+    
+    # Additional Dell Bloatware (Redundant/Security Risk)
+    "Dell Data Vault": {
+        "type": "Bloatware/Trialware",
+        "detection": ['Dell Data Vault', 'Dell Backup and Recovery'],
+        "reason": "TRIALWARE - Dell backup solution trial. Limited free features, expensive subscription. Windows Backup or free alternatives better.",
+        "files": ['C:\\Program Files\\Dell\\Dell Data Vault', 'C:\\ProgramData\\Dell\\Dell Data Vault'],
+    },
+    "Dell Power Manager": {
+        "type": "Bloatware/Redundant",
+        "detection": ['Dell Power Manager', 'Dell QuickSet'],
+        "reason": "REDUNDANT - Dell battery/power management. Windows native power management sufficient. Unnecessary control duplication.",
+        "files": ['C:\\Program Files\\Dell\\Dell Power Manager'],
+    },
+    "Dell CinemaColor": {
+        "type": "Bloatware/Useless",
+        "detection": ['Dell CinemaColor', 'Dell Cinema'],
+        "reason": "USELESS - Dell display color management. Minimal visible improvements. Can be adjusted via Windows display settings.",
+        "files": ['C:\\Program Files\\Dell\\CinemaColor'],
+    },
+    "Dell Foundation Services": {
+        "type": "Bloatware/Resource-Consuming",
+        "detection": ['Dell Foundation Services', 'Dell SFS'],
+        "reason": "RESOURCE-CONSUMING - Background service for Dell utilities. Constantly running. Consumes resources even if Dell apps not used.",
+        "services": ['DellFoundationServices', 'DellClientManagementService'],
+    },
+    "My Dell": {
+        "type": "Bloatware/Redundant",
+        "detection": ['My Dell', 'Dell Help & Support'],
+        "reason": "REDUNDANT - Dell support portal app. All information available on Dell website. Unnecessary bloatware with notifications.",
+        "files": ['C:\\Program Files\\Dell\\My Dell'],
+    },
+    "Dell ControlVault": {
+        "type": "Bloatware/Niche",
+        "detection": ['Dell ControlVault', 'Dell Data Protection'],
+        "reason": "NICHE - Enterprise security feature. Unnecessary for home users. Adds complexity without consumer benefit.",
+        "files": ['C:\\Program Files\\Dell\\Dell Data Protection'],
+    },
+    "WavesMaxxAudio": {
+        "type": "Bloatware/Redundant",
+        "detection": ['WavesMaxxAudio', 'Waves MaxxAudio Pro', 'MaxxAudioPro'],
+        "reason": "REDUNDANT - Audio enhancement suite preinstalled on Dell/HP/Lenovo. Windows audio drivers sufficient. Resource usage for marginal benefit.",
+        "files": ['C:\\Program Files\\Waves', 'C:\\Program Files (x86)\\Waves'],
+        "services": ['WavesAudioService'],
+    },
+    
+    # Additional Lenovo Bloatware (Privacy/Security Concerns)
+    "Lenovo Customer Feedback": {
+        "type": "Bloatware/Privacy Risk",
+        "detection": ['Lenovo Customer Feedback', 'Lenovo Experience Improvement'],
+        "reason": "PRIVACY RISK - Telemetry collection tool. Sends usage data to Lenovo servers. No benefit to user. Privacy concern.",
+        "files": ['C:\\Program Files\\Lenovo\\Customer Feedback'],
+    },
+    "Lenovo Settings": {
+        "type": "Bloatware/Redundant",
+        "detection": ['Lenovo Settings', 'Lenovo Companion'],
+        "reason": "REDUNDANT - Lenovo system settings manager. Windows Settings handles most functions. Duplicate control panel.",
+        "files": ['C:\\Program Files\\Lenovo\\Lenovo Settings'],
+    },
+    "Lenovo System Update": {
+        "type": "Bloatware/Security Risk",
+        "detection": ['Lenovo System Update', 'Lenovo Update'],
+        "reason": "SECURITY RISK - Lenovo update utility with past security vulnerabilities. Windows Update more secure and reliable. Potential exploit vector.",
+        "files": ['C:\\Program Files\\Lenovo\\System Update', 'C:\\ProgramData\\Lenovo\\SystemUpdate'],
+        "services": ['LenovoSystemUpdateService'],
+    },
+    "Lenovo Welcome": {
+        "type": "Bloatware/Useless",
+        "detection": ['Lenovo Welcome', 'Lenovo Transition'],
+        "reason": "USELESS - One-time setup wizard. No purpose after initial setup. Waste of disk space.",
+        "files": ['C:\\Program Files\\Lenovo\\Lenovo Welcome'],
+    },
+    "Lenovo REACHit": {
+        "type": "Bloatware/Redundant",
+        "detection": ['Lenovo REACHit'],
+        "reason": "REDUNDANT - Cloud file aggregator by Lenovo. Privacy concerns with file indexing. OneDrive/Google Drive more trustworthy.",
+        "files": ['C:\\Program Files\\Lenovo\\REACHit'],
+    },
+    "Lenovo PowerDVD": {
+        "type": "Bloatware/Trialware",
+        "detection": ['Lenovo PowerDVD', 'CyberLink PowerDVD Lenovo'],
+        "reason": "TRIALWARE - Trial DVD player by CyberLink. Limited trial period. VLC Media Player free and superior.",
+        "files": ['C:\\Program Files\\Lenovo\\PowerDVD'],
+    },
+    "Lenovo Photo Master": {
+        "type": "Bloatware/Redundant",
+        "detection": ['Lenovo Photo Master'],
+        "reason": "REDUNDANT - Photo management app. Windows Photos app sufficient. Unnecessary duplicate functionality.",
+        "files": ['C:\\Program Files\\Lenovo\\Lenovo Photo Master'],
+    },
+    "Lenovo QuickCast": {
+        "type": "Bloatware/Niche",
+        "detection": ['Lenovo QuickCast'],
+        "reason": "NICHE - Screen sharing to mobile devices. Limited usefulness. Better alternatives available.",
+        "files": ['C:\\Program Files\\Lenovo\\QuickCast'],
+    },
+    
+    # Additional ASUS Bloatware (Resource-Consuming/Redundant)
+    "ASUS WebStorage": {
+        "type": "Bloatware/Trialware",
+        "detection": ['ASUS WebStorage', 'ECAREME'],
+        "reason": "TRIALWARE - ASUS cloud storage with limited free space. Constant upgrade prompts. OneDrive/Google Drive more reliable.",
+        "files": ['C:\\Program Files\\ASUS\\WebStorage', 'C:\\Program Files (x86)\\ASUS\\WebStorage'],
+    },
+    "ASUS Splendid": {
+        "type": "Bloatware/Redundant",
+        "detection": ['ASUS Splendid', 'Splendid Utility'],
+        "reason": "REDUNDANT - Display color management tool. Windows color management sufficient. Minimal benefit.",
+        "files": ['C:\\Program Files\\ASUS\\Splendid'],
+    },
+    "ASUS FancyStart": {
+        "type": "Bloatware/Useless",
+        "detection": ['ASUS FancyStart'],
+        "reason": "USELESS - Decorative start menu customizer. Purely cosmetic. No functional value. Waste of resources.",
+        "files": ['C:\\Program Files\\ASUS\\FancyStart'],
+    },
+    "ASUS FaceLogon": {
+        "type": "Bloatware/Security Risk",
+        "detection": ['ASUS FaceLogon'],
+        "reason": "SECURITY RISK - Facial recognition login. Unreliable and insecure compared to password/PIN. Privacy concerns with face data storage.",
+        "files": ['C:\\Program Files\\ASUS\\FaceLogon'],
+    },
+    "ASUS Vibe": {
+        "type": "Bloatware/Obsolete",
+        "detection": ['ASUS Vibe', 'ASUS@Vibe'],
+        "reason": "OBSOLETE - ASUS social sharing platform. Service discontinued. Completely useless. Should be removed immediately.",
+        "files": ['C:\\Program Files\\ASUS\\ASUS Vibe'],
+    },
+    "ASUS Gaming Center": {
+        "type": "Bloatware/Resource-Consuming",
+        "detection": ['ASUS Gaming Center', 'ROG Gaming Center'],
+        "reason": "RESOURCE-CONSUMING - Gaming optimization suite. Heavy resource usage. Most features accessible via Windows Game Bar or Armoury Crate.",
+        "files": ['C:\\Program Files\\ASUS\\ROG Gaming Center'],
+    },
+    "ASUS AI Suite": {
+        "type": "Bloatware/Inefficient",
+        "detection": ['ASUS AI Suite', 'AI Suite 3'],
+        "reason": "INEFFICIENT - Motherboard monitoring suite. Known for bugs and excessive resource usage. Better alternatives like HWiNFO available.",
+        "files": ['C:\\Program Files (x86)\\ASUS\\AI Suite III', 'C:\\Program Files\\ASUS\\AI Suite'],
+        "services": ['AsusCertService', 'AsusFanControlService'],
+    },
+    "ASUS Device Activation": {
+        "type": "Bloatware/Useless",
+        "detection": ['ASUS Device Activation'],
+        "reason": "USELESS - One-time device registration tool. No purpose after activation. Pure bloatware.",
+    },
+    "ASUS InstantOn": {
+        "type": "Bloatware/Redundant",
+        "detection": ['ASUS InstantOn'],
+        "reason": "REDUNDANT - Fast boot utility. Windows Fast Startup provides same functionality. Duplicate feature.",
+        "files": ['C:\\Program Files\\ASUS\\InstantOn'],
+    },
+    "ASUS Virtual Camera": {
+        "type": "Bloatware/Niche",
+        "detection": ['ASUS Virtual Camera'],
+        "reason": "NICHE - Virtual camera effects utility. Limited usefulness. Most video apps have built-in effects.",
+        "files": ['C:\\Program Files\\ASUS\\Virtual Camera'],
+    },
+    
+    # Acer Bloatware (Redundant/Useless)
+    "Acer Quick Access": {
+        "type": "Bloatware/Redundant",
+        "detection": ['Acer Quick Access'],
+        "reason": "REDUNDANT - Acer quick settings utility. Windows Action Center provides same functionality. Unnecessary overlay.",
+        "files": ['C:\\Program Files\\Acer\\Acer Quick Access'],
+    },
+    "Acer abPhoto": {
+        "type": "Bloatware/Redundant",
+        "detection": ['Acer abPhoto', 'abPhoto'],
+        "reason": "REDUNDANT - Acer cloud photo service. Windows Photos and OneDrive superior. Unnecessary cloud service.",
+        "files": ['C:\\Program Files\\Acer\\abPhoto'],
+    },
+    "Acer abFiles": {
+        "type": "Bloatware/Redundant",
+        "detection": ['Acer abFiles', 'abFiles'],
+        "reason": "REDUNDANT - Acer cloud file service. OneDrive and Google Drive more reliable. Unnecessary duplication.",
+        "files": ['C:\\Program Files\\Acer\\abFiles'],
+    },
+    "Acer abDocs": {
+        "type": "Bloatware/Redundant",
+        "detection": ['Acer abDocs', 'abDocs'],
+        "reason": "REDUNDANT - Acer cloud document service. Office 365 and Google Docs better. Pointless cloud service.",
+        "files": ['C:\\Program Files\\Acer\\abDocs'],
+    },
+    "Acer BYOC Apps": {
+        "type": "Bloatware/Privacy Risk",
+        "detection": ['Acer BYOC'],
+        "reason": "PRIVACY RISK - Acer 'Bring Your Own Cloud' apps. Requires sharing credentials with Acer. Security and privacy concerns.",
+        "files": ['C:\\Program Files\\Acer\\Acer BYOC'],
+    },
+    "Acer User Experience Improvement": {
+        "type": "Bloatware/Privacy Risk",
+        "detection": ['Acer User Experience Improvement', 'ACERUEI'],
+        "reason": "PRIVACY RISK - Telemetry collection program. Sends usage data to Acer without clear user benefit. Privacy concern.",
+        "services": ['AcerUEIP'],
+    },
+    
+    # Toshiba Bloatware (Obsolete/Redundant)
+    "TOSHIBA Service Station": {
+        "type": "Bloatware/Redundant",
+        "detection": ['TOSHIBA Service Station'],
+        "reason": "REDUNDANT - Toshiba update checker. Windows Update handles most updates. Unnecessary background service.",
+        "files": ['C:\\Program Files\\TOSHIBA\\Service Station'],
+        "services": ['TMachInfo'],
+    },
+    "TOSHIBA Bulletin Board": {
+        "type": "Bloatware/Useless",
+        "detection": ['TOSHIBA Bulletin Board'],
+        "reason": "USELESS - Desktop note/reminder app. Windows Sticky Notes better. Pointless bloatware.",
+        "files": ['C:\\Program Files\\TOSHIBA\\BulletinBoard'],
+    },
+    "TOSHIBA Face Recognition": {
+        "type": "Bloatware/Security Risk",
+        "detection": ['TOSHIBA Face Recognition'],
+        "reason": "SECURITY RISK - Outdated facial recognition. Unreliable and insecure. Windows Hello better alternative.",
+        "files": ['C:\\Program Files\\TOSHIBA\\TOSHIBA Face Recognition'],
+    },
+    "TOSHIBA ConfigFree": {
+        "type": "Bloatware/Obsolete",
+        "detection": ['TOSHIBA ConfigFree'],
+        "reason": "OBSOLETE - Old network management utility. Windows native networking superior. Ancient bloatware.",
+        "files": ['C:\\Program Files\\TOSHIBA\\ConfigFree'],
+    },
+    "TOSHIBA eco Utility": {
+        "type": "Bloatware/Redundant",
+        "detection": ['TOSHIBA eco Utility'],
+        "reason": "REDUNDANT - Power saving utility. Windows power management better. Duplicate functionality.",
+        "files": ['C:\\Program Files\\TOSHIBA\\eco Utility'],
+    },
+    "TOSHIBA App Place": {
+        "type": "Bloatware/Adware",
+        "detection": ['TOSHIBA App Place', 'TOSHIBA AppPlace'],
+        "reason": "ADWARE - Toshiba app store promoting software. Bloatware suggesting more bloatware. Advertisements.",
+        "files": ['C:\\Program Files\\TOSHIBA\\TOSHIBA App Place'],
+    },
+    "TOSHIBA Media Controller": {
+        "type": "Bloatware/Redundant",
+        "detection": ['TOSHIBA Media Controller'],
+        "reason": "REDUNDANT - Media streaming utility. Windows Media Player and modern streaming apps better. Obsolete.",
+        "files": ['C:\\Program Files\\TOSHIBA\\TMController'],
+    },
+    "TOSHIBA Password Utility": {
+        "type": "Bloatware/Security Risk",
+        "detection": ['TOSHIBA Password Utility'],
+        "reason": "SECURITY RISK - Proprietary password manager. Third-party password managers like Bitwarden more secure. Outdated.",
+        "files": ['C:\\Program Files\\TOSHIBA\\PasswordUtility'],
+    },
+    
+    # MSI Bloatware (Resource-Consuming)
+    "MSI Center": {
+        "type": "Bloatware/Resource-Consuming",
+        "detection": ['MSI Center', 'MSI Dragon Center 2'],
+        "reason": "RESOURCE-CONSUMING - MSI system control suite. Heavy RAM and CPU usage. Most features accessible via Windows.",
+        "files": ['C:\\Program Files\\MSI\\MSI Center', 'C:\\Program Files\\MSI\\One Dragon Center'],
+        "services": ['MSI_Central_Service', 'MSI_ActiveX_Service'],
+    },
+    "MSI True Color": {
+        "type": "Bloatware/Redundant",
+        "detection": ['MSI True Color'],
+        "reason": "REDUNDANT - Display color calibration. Windows color management sufficient. Minimal benefit.",
+        "files": ['C:\\Program Files\\MSI\\True Color'],
+    },
+    "MSI BurnRecovery": {
+        "type": "Bloatware/Obsolete",
+        "detection": ['MSI BurnRecovery'],
+        "reason": "OBSOLETE - Optical disc burning utility. USB recovery better. CD/DVD burning rarely needed.",
+        "files": ['C:\\Program Files\\MSI\\BurnRecovery'],
+    },
+    "Nahimic Audio": {
+        "type": "Bloatware/Resource-Consuming",
+        "detection": ['Nahimic', 'Nahimic Audio', 'Nahimic Service'],
+        "reason": "RESOURCE-CONSUMING - Audio enhancement suite. Known for bugs and high CPU usage. Windows audio sufficient.",
+        "files": ['C:\\Program Files\\Nahimic', 'C:\\ProgramData\\Nahimic'],
+        "services": ['NahimicService', 'nahimicsvc'],
+    },
+    "MSI Fast Boot": {
+        "type": "Bloatware/Redundant",
+        "detection": ['MSI Fast Boot'],
+        "reason": "REDUNDANT - Fast boot utility. Windows Fast Startup provides same feature. Unnecessary duplication.",
+    },
+    
+    # Sony VAIO Bloatware (Obsolete)
+    "VAIO Control Center": {
+        "type": "Bloatware/Obsolete",
+        "detection": ['VAIO Control Center'],
+        "reason": "OBSOLETE - Sony system settings manager. Brand discontinued. All features in Windows Settings.",
+        "files": ['C:\\Program Files\\Sony\\VAIO Control Center'],
+    },
+    "VAIO Media Plus": {
+        "type": "Bloatware/Redundant",
+        "detection": ['VAIO Media Plus', 'VAIO Media Gallery'],
+        "reason": "REDUNDANT - Sony media manager. Windows Photos and Groove Music better. Obsolete software.",
+        "files": ['C:\\Program Files\\Sony\\VAIO Media Plus'],
+    },
+    "PlayMemories Home": {
+        "type": "Bloatware/Redundant",
+        "detection": ['PlayMemories Home', 'PMHome'],
+        "reason": "REDUNDANT - Sony photo/video manager. Windows Photos sufficient. Bloated with unnecessary features.",
+        "files": ['C:\\Program Files\\Sony\\PlayMemories Home'],
+    },
+    "VAIO Messenger": {
+        "type": "Bloatware/Obsolete",
+        "detection": ['VAIO Messenger'],
+        "reason": "OBSOLETE - Sony communication tool. Service discontinued. Completely useless.",
+        "files": ['C:\\Program Files\\Sony\\VAIO Messenger'],
+    },
+    "ArcSoft WebCam Companion": {
+        "type": "Bloatware/Redundant",
+        "detection": ['ArcSoft WebCam Companion', 'Magic-i Visual Effects'],
+        "reason": "REDUNDANT - Webcam effects software. Most video apps have built-in effects. Unnecessary bloatware.",
+        "files": ['C:\\Program Files\\ArcSoft\\WebCam Companion'],
+    },
+    
+    # Fujitsu Bloatware
+    "Fujitsu DeskUpdate": {
+        "type": "Bloatware/Redundant",
+        "detection": ['Fujitsu DeskUpdate'],
+        "reason": "REDUNDANT - Fujitsu update utility. Windows Update handles most drivers. Unnecessary background service.",
+        "files": ['C:\\Program Files\\Fujitsu\\DeskUpdate'],
+    },
+    "Fujitsu Display Manager": {
+        "type": "Bloatware/Redundant",
+        "detection": ['Fujitsu Display Manager'],
+        "reason": "REDUNDANT - Display management utility. Windows display settings sufficient. Pointless overlay.",
+        "files": ['C:\\Program Files\\Fujitsu\\Display Manager'],
+    },
+    "Fujitsu Application Panel": {
+        "type": "Bloatware/Useless",
+        "detection": ['Fujitsu Application Panel'],
+        "reason": "USELESS - App launcher utility. Windows Start Menu better. Unnecessary bloatware.",
+        "files": ['C:\\Program Files\\Fujitsu\\Application Panel'],
+    },
+    
+    # Razer Bloatware
+    "Razer Cortex": {
+        "type": "Bloatware/Resource-Consuming",
+        "detection": ['Razer Cortex', 'Razer Game Booster'],
+        "reason": "RESOURCE-CONSUMING - Game optimization tool. Questionable performance benefits. Uses resources while claiming to free them.",
+        "files": ['C:\\Program Files\\Razer\\Razer Cortex'],
+    },
+    "Razer Surround": {
+        "type": "Bloatware/Niche",
+        "detection": ['Razer Surround'],
+        "reason": "NICHE - Virtual surround sound software. Limited benefit without specific headphones. Unnecessary for most users.",
+        "files": ['C:\\Program Files\\Razer\\Razer Surround'],
+    },
+    
+    # Additional Browser Toolbars and Hijackers
+    "Snap.do Toolbar": {
+        "type": "Browser Hijacker/Malicious",
+        "detection": ['Snap.do', 'SnapDo', 'Search.snapdo.com'],
+        "reason": "MALICIOUS - Browser hijacker changing homepage and search engine. Tracks browsing data. Difficult to remove.",
+        "files": ['C:\\Users\\*\\AppData\\Local\\Smartbar'],
+        "registry": ['HKCU\\SOFTWARE\\Snap.do', 'HKLM\\SOFTWARE\\Snap.do'],
+    },
+    "Sweet Page": {
+        "type": "Browser Hijacker/Malicious",
+        "detection": ['Sweet Page', 'sweet-page.com'],
+        "reason": "MALICIOUS - Browser hijacker redirecting searches. Shows intrusive ads. Privacy violation through tracking.",
+        "registry": ['HKCU\\SOFTWARE\\Sweet-Page'],
+    },
+    "Delta Toolbar": {
+        "type": "Browser Hijacker/Adware",
+        "detection": ['Delta Toolbar', 'Delta Search', 'delta-search.com'],
+        "reason": "ADWARE - Bundled toolbar hijacker. Changes default search to Delta Search. Displays unwanted advertisements.",
+        "files": ['C:\\Program Files\\Delta', 'C:\\Program Files (x86)\\Delta'],
+        "registry": ['HKLM\\SOFTWARE\\Delta'],
+    },
+    "iMesh Toolbar": {
+        "type": "Browser Hijacker/Adware",
+        "detection": ['iMesh Toolbar', 'iMeshBar'],
+        "reason": "ADWARE - Bundled with iMesh P2P software. Browser hijacker with ads. Tracks browsing behavior.",
+        "registry": ['HKCU\\SOFTWARE\\iMeshBar'],
+    },
+    "Shopping Helper Smartbar": {
+        "type": "Adware/Malicious",
+        "detection": ['Shopping Helper Smartbar', 'Smartbar'],
+        "reason": "MALICIOUS - Aggressive adware showing shopping deals. Browser hijacker. Extremely difficult to remove completely.",
+        "files": ['C:\\Users\\*\\AppData\\Local\\Smartbar'],
+        "registry": ['HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\{A76AA284-E52D-47E6-9E4F-B85DBF8E35C3}'],
+    },
+    "MyWebSearch Toolbar": {
+        "type": "Browser Hijacker/Spyware",
+        "detection": ['MyWebSearch', 'MyWebSearch Toolbar', 'MyWay'],
+        "reason": "SPYWARE - Known browser hijacker and spyware. Tracks all browsing activity. Changes search provider and homepage.",
+        "files": ['C:\\Program Files\\MyWebSearch', 'C:\\Program Files (x86)\\MyWebSearch'],
+        "registry": ['HKLM\\SOFTWARE\\MyWebSearch'],
+    },
+    "GoSave Toolbar": {
+        "type": "Adware/Malicious",
+        "detection": ['GoSave', 'GoSave Toolbar'],
+        "reason": "MALICIOUS - Shopping adware injecting ads into websites. Browser hijacker. Privacy invasion through tracking.",
+        "files": ['C:\\Program Files\\GoSave'],
+        "registry": ['HKLM\\SOFTWARE\\GoSave'],
+    },
+    "Coupon Server": {
+        "type": "Adware/Malicious",
+        "detection": ['Coupon Server', 'CouponServer'],
+        "reason": "MALICIOUS - Adware injecting unwanted coupons and ads. Slows browsing. Tracks shopping behavior.",
+        "files": ['C:\\Program Files\\Coupon Server'],
+    },
+    "RocketTab": {
+        "type": "Browser Hijacker/Malicious",
+        "detection": ['RocketTab', 'Rocket Tab'],
+        "reason": "MALICIOUS - Browser hijacker changing new tab page. Shows ads and sponsored content. Tracks browsing data.",
+        "files": ['C:\\Program Files\\RocketTab', 'C:\\Users\\*\\AppData\\Local\\RocketTab'],
+        "registry": ['HKCU\\SOFTWARE\\RocketTab'],
+    },
+    "Marquis": {
+        "type": "Browser Hijacker/Adware",
+        "detection": ['Marquis', 'SearchMarquis'],
+        "reason": "ADWARE - Mac and Windows browser hijacker. Redirects searches through affiliate links. Privacy invasion.",
+        "registry": ['HKCU\\SOFTWARE\\Marquis'],
+    },
+    "VSearch": {
+        "type": "Browser Hijacker/Malicious",
+        "detection": ['VSearch', 'Vsearch.com'],
+        "reason": "MALICIOUS - Browser hijacker changing search provider. Displays misleading ads. Tracks user searches.",
+        "registry": ['HKCU\\SOFTWARE\\VSearch'],
+    },
+    "CoolWebSearch": {
+        "type": "Browser Hijacker/Malware",
+        "detection": ['CoolWebSearch', 'CWS'],
+        "reason": "MALWARE - Notorious browser hijacker family. Extremely difficult to remove. Changes homepage and search repeatedly.",
+        "registry": ['HKLM\\SOFTWARE\\CoolWebSearch'],
+    },
+    "OneWebSearch": {
+        "type": "Browser Hijacker/Adware",
+        "detection": ['OneWebSearch'],
+        "reason": "ADWARE - Browser hijacker redirecting searches. Shows sponsored results. Privacy concern with data collection.",
+        "registry": ['HKCU\\SOFTWARE\\OneWebSearch'],
+    },
+    "SourceForge Installer": {
+        "type": "Bundleware/Adware",
+        "detection": ['SourceForge Installer', 'SF Installer'],
+        "reason": "BUNDLEWARE - SourceForge installer bundling unwanted software. Often installs toolbars and adware. Use direct downloads only.",
+        "files": ['C:\\Users\\*\\AppData\\Local\\Temp\\sfx_*'],
+    },
+    
+    # Trial Software and Trialware
+    "WinZip Trial": {
+        "type": "Trialware/Redundant",
+        "detection": ['WinZip Trial', 'WinZip Evaluation'],
+        "reason": "REDUNDANT TRIALWARE - Trial compression utility. Windows has built-in ZIP support. 7-Zip free and superior. Expensive license for basic features.",
+        "files": ['C:\\Program Files\\WinZip', 'C:\\Program Files (x86)\\WinZip'],
+        "registry": ['HKLM\\SOFTWARE\\WinZip'],
+    },
+    "WinRAR Trial": {
+        "type": "Trialware",
+        "detection": ['WinRAR Trial', 'WinRAR Evaluation'],
+        "reason": "TRIALWARE - Trial archive manager. Free trial never expires but shows nag screens. 7-Zip completely free alternative.",
+        "files": ['C:\\Program Files\\WinRAR', 'C:\\Program Files (x86)\\WinRAR'],
+    },
+    "CyberLink PowerDVD Trial": {
+        "type": "Trialware/Obsolete",
+        "detection": ['CyberLink PowerDVD Trial', 'PowerDVD OEM'],
+        "reason": "OBSOLETE TRIALWARE - Trial DVD/Blu-ray player. Optical media declining. VLC Media Player free and plays everything.",
+        "files": ['C:\\Program Files\\CyberLink\\PowerDVD', 'C:\\Program Files (x86)\\CyberLink\\PowerDVD'],
+        "registry": ['HKLM\\SOFTWARE\\CyberLink\\PowerDVD'],
+    },
+    "CyberLink Power2Go": {
+        "type": "Trialware/Obsolete",
+        "detection": ['CyberLink Power2Go', 'Power2Go OEM'],
+        "reason": "OBSOLETE TRIALWARE - Trial disc burning software. Optical media rarely used. Windows has built-in burning. Free alternatives better.",
+        "files": ['C:\\Program Files\\CyberLink\\Power2Go', 'C:\\Program Files (x86)\\CyberLink\\Power2Go'],
+    },
+    "CyberLink PhotoDirector": {
+        "type": "Trialware/Redundant",
+        "detection": ['CyberLink PhotoDirector', 'PhotoDirector OEM'],
+        "reason": "REDUNDANT TRIALWARE - Trial photo editor. Limited features in trial. Windows Photos or GIMP better alternatives.",
+        "files": ['C:\\Program Files\\CyberLink\\PhotoDirector'],
+    },
+    "CyberLink YouCam": {
+        "type": "Trialware/Redundant",
+        "detection": ['CyberLink YouCam'],
+        "reason": "REDUNDANT TRIALWARE - Trial webcam effects software. Modern video apps have built-in effects. Unnecessary bloatware.",
+        "files": ['C:\\Program Files\\CyberLink\\YouCam'],
+    },
+    "Nero Burning ROM Trial": {
+        "type": "Trialware/Obsolete",
+        "detection": ['Nero Burning ROM Trial', 'Nero Trial', 'Nero Essentials'],
+        "reason": "OBSOLETE TRIALWARE - Trial disc burning suite. Optical media declining. Heavy software for rarely-needed feature.",
+        "files": ['C:\\Program Files\\Nero', 'C:\\Program Files (x86)\\Nero'],
+    },
+    "Roxio Creator Trial": {
+        "type": "Trialware/Obsolete",
+        "detection": ['Roxio Creator Trial', 'Roxio OEM'],
+        "reason": "OBSOLETE TRIALWARE - Trial multimedia suite. CD/DVD burning obsolete. Bloated software with limited trial.",
+        "files": ['C:\\Program Files\\Roxio', 'C:\\Program Files (x86)\\Roxio'],
+    },
+    "Corel PaintShop Pro Trial": {
+        "type": "Trialware",
+        "detection": ['Corel PaintShop Pro Trial', 'PaintShop Pro OEM'],
+        "reason": "TRIALWARE - Trial photo editor. Limited trial period. GIMP or Paint.NET free alternatives. Expensive full version.",
+        "files": ['C:\\Program Files\\Corel\\PaintShop Pro'],
+    },
+    "Corel VideoStudio Trial": {
+        "type": "Trialware",
+        "detection": ['Corel VideoStudio Trial', 'VideoStudio OEM'],
+        "reason": "TRIALWARE - Trial video editor. Limited features and time. DaVinci Resolve free and more powerful.",
+        "files": ['C:\\Program Files\\Corel\\VideoStudio'],
+    },
+    "WPS Office": {
+        "type": "Bloatware/Adware",
+        "detection": ['WPS Office', 'Kingsoft Office'],
+        "reason": "ADWARE - Office suite with ads in free version. Often preinstalled. Microsoft Office or LibreOffice better. Privacy concerns with Chinese company.",
+        "files": ['C:\\Program Files\\Kingsoft', 'C:\\Program Files (x86)\\Kingsoft'],
+    },
+    "Evernote OEM": {
+        "type": "Bloatware/Trialware",
+        "detection": ['Evernote OEM', 'Evernote Preinstalled'],
+        "reason": "TRIALWARE - Note-taking app preinstalled by OEMs. Limited free version. OneNote free and better integrated with Windows.",
+        "files": ['C:\\Program Files\\Evernote', 'C:\\Program Files (x86)\\Evernote'],
+    },
+    "Dropbox Promotional": {
+        "type": "Bloatware",
+        "detection": ['Dropbox 25 GB', 'Dropbox Promotion'],
+        "reason": "BLOATWARE - Promotional Dropbox installer. OEM deals for limited storage. Should be user choice to install.",
+        "files": ['C:\\Program Files\\Dropbox\\DropboxOEM'],
+    },
+    "WildTangent Games": {
+        "type": "Bloatware/Adware",
+        "detection": ['WildTangent Games', 'WildTangent', 'Game Console WildTangent'],
+        "reason": "ADWARE BLOATWARE - Game portal with trial games. Preinstalled on HP/Dell/Acer. Ads and microtransactions. No value.",
+        "files": ['C:\\Program Files\\WildTangent Games', 'C:\\ProgramData\\WildTangent'],
+    },
+    "McAfee WebAdvisor": {
+        "type": "Bloatware/PUP",
+        "detection": ['McAfee WebAdvisor', 'McAfee SiteAdvisor'],
+        "reason": "PUP BLOATWARE - Browser extension often bundled. Slows browsing. Shows unnecessary warnings. McAfee branded but separate from AV.",
+        "files": ['C:\\Program Files\\McAfee\\WebAdvisor'],
+        "services": ['mcwfpservice'],
+    },
+    "Norton Safe Web": {
+        "type": "Bloatware/Redundant",
+        "detection": ['Norton Safe Web', 'Norton SafeWeb'],
+        "reason": "REDUNDANT BLOATWARE - Browser extension for site ratings. Slows browsing. Windows Defender SmartScreen sufficient.",
+    },
+    "Adobe Acrobat Reader DC Trial": {
+        "type": "Bloatware/Redundant",
+        "detection": ['Adobe Acrobat Reader DC Trial', 'Adobe Reader Trial'],
+        "reason": "REDUNDANT TRIALWARE - PDF reader with trial pro features. Edge browser reads PDFs. Sumatra PDF lightweight free alternative.",
+        "files": ['C:\\Program Files\\Adobe\\Acrobat Reader DC', 'C:\\Program Files (x86)\\Adobe\\Acrobat Reader DC'],
+    },
+    "Office 365 Trial": {
+        "type": "Trialware",
+        "detection": ['Microsoft Office 365 Trial', 'Office Trial', 'Office 365 OEM'],
+        "reason": "TRIALWARE - Time-limited Office trial. Should be user choice. LibreOffice free alternative. Expensive subscription.",
+    },
+    "Trend Micro Trial": {
+        "type": "Trialware/Redundant",
+        "detection": ['Trend Micro Security Trial', 'Trend Micro OEM'],
+        "reason": "REDUNDANT TRIALWARE - Trial antivirus. Windows Defender sufficient. Trial expires with nag screens.",
+        "files": ['C:\\Program Files\\Trend Micro'],
+        "services": ['TrendMicro'],
+    },
+    "Kaspersky Trial": {
+        "type": "Trialware/Privacy Risk",
+        "detection": ['Kaspersky Security Trial', 'Kaspersky OEM'],
+        "reason": "PRIVACY RISK TRIALWARE - Russian antivirus with government concerns. Banned by several governments. Windows Defender safer.",
+        "files": ['C:\\Program Files\\Kaspersky Lab'],
+    },
 }
 
 
