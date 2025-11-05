@@ -33,7 +33,7 @@ except ImportError:
 try:
     from PySide6.QtWidgets import (QApplication, QWidget, QVBoxLayout, QPushButton,
                                     QListWidget, QListWidgetItem, QLabel, QMessageBox,
-                                    QDialog, QDialogButtonBox, QProgressDialog, QCheckBox, QHBoxLayout)
+                                    QDialog, QDialogButtonBox, QProgressDialog, QCheckBox, QHBoxLayout, QComboBox)
     from PySide6.QtCore import Qt, QThread, Signal, QTimer, QPropertyAnimation, QRect
     from PySide6.QtGui import QIcon, QPainter, QColor, QPen
 except ImportError:
@@ -42,7 +42,7 @@ except ImportError:
     try:
         from PySide6.QtWidgets import (QApplication, QWidget, QVBoxLayout, QPushButton,
                                         QListWidget, QListWidgetItem, QLabel, QMessageBox,
-                                        QDialog, QDialogButtonBox, QProgressDialog, QCheckBox)
+                                        QDialog, QDialogButtonBox, QProgressDialog, QCheckBox, QHBoxLayout, QComboBox)
         from PySide6.QtCore import Qt, QThread, Signal
         from PySide6.QtGui import QIcon
     except ImportError:
