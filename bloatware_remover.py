@@ -33,9 +33,9 @@ except ImportError:
 try:
     from PySide6.QtWidgets import (QApplication, QWidget, QVBoxLayout, QPushButton,
                                     QListWidget, QListWidgetItem, QLabel, QMessageBox,
-                                    QDialog, QDialogButtonBox, QProgressDialog, QCheckBox)
-    from PySide6.QtCore import Qt, QThread, Signal
-    from PySide6.QtGui import QIcon
+                                    QDialog, QDialogButtonBox, QProgressDialog, QCheckBox, QHBoxLayout)
+    from PySide6.QtCore import Qt, QThread, Signal, QTimer, QPropertyAnimation, QRect
+    from PySide6.QtGui import QIcon, QPainter, QColor, QPen
 except ImportError:
     print("El módulo 'PySide6' no está instalado. Instalándolo...")
     subprocess.check_call([sys.executable, "-m", "pip", "install", "PySide6"])
@@ -176,6 +176,78 @@ def handle_shutil_error(func, path, excinfo):
     """ Manejador de errores para shutil.rmtree """
     etype, evalue, etb = excinfo
     logging.warning(f"Error al eliminar '{path}' usando {func.__name__}: {evalue}")
+
+
+class SpinningWheel(QWidget):
+    """Widget que muestra una rueda giratoria animada"""
+    def __init__(self, parent=None):
+        super().__init__(parent)
+        self.angle = 0
+        self.setFixedSize(40, 40)
+        
+        # Timer para animar la rueda
+        self.timer = QTimer(self)
+        self.timer.timeout.connect(self.rotate)
+        self.timer.start(50)  # Actualizar cada 50ms
+    
+    def rotate(self):
+        """Rota la rueda"""
+        self.angle = (self.angle + 10) % 360
+        self.update()
+    
+    def paintEvent(self, event):
+        """Dibuja la rueda giratoria"""
+        painter = QPainter(self)
+        painter.setRenderHint(QPainter.Antialiasing)
+        
+        # Centro del widget
+        center_x = self.width() // 2
+        center_y = self.height() // 2
+        radius = 15
+        
+        # Dibujar círculo de fondo
+        painter.setPen(QPen(QColor(200, 200, 200), 2))
+        painter.drawEllipse(center_x - radius, center_y - radius, radius * 2, radius * 2)
+        
+        # Dibujar segmento animado
+        painter.setPen(QPen(QColor(0, 120, 215), 4))
+        painter.drawArc(center_x - radius, center_y - radius, radius * 2, radius * 2, 
+                       self.angle * 16, 120 * 16)
+
+
+class CustomProgressDialog(QDialog):
+    """Diálogo de progreso personalizado con animación de rueda giratoria"""
+    def __init__(self, parent=None):
+        super().__init__(parent)
+        self.setWindowTitle("TANKEKIT")  # Sin "Python" en el título
+        self.setModal(True)
+        self.setFixedSize(350, 120)
+        
+        layout = QVBoxLayout()
+        
+        # Label de "Trabajando"
+        self.label = QLabel("Trabajando...")
+        self.label.setAlignment(Qt.AlignCenter)
+        font = self.label.font()
+        font.setPointSize(12)
+        self.label.setFont(font)
+        layout.addWidget(self.label)
+        
+        # Contenedor horizontal para la rueda giratoria
+        wheel_container = QHBoxLayout()
+        wheel_container.addStretch()
+        self.spinning_wheel = SpinningWheel(self)
+        wheel_container.addWidget(self.spinning_wheel)
+        wheel_container.addStretch()
+        layout.addLayout(wheel_container)
+        
+        layout.addStretch()
+        
+        self.setLayout(layout)
+    
+    def closeEvent(self, event):
+        """Prevenir cierre accidental"""
+        event.ignore()
 
 
 class Worker(QThread):
@@ -1234,8 +1306,7 @@ class UninstallerApp(QWidget):
         super().__init__()
         self.detected_software = []
         self.worker = None
-        self.progress_dialog = None
-        self.progress_dialog_remove = None
+        self.custom_progress_dialog = None
         self.initUI()
 
     def initUI(self):
@@ -1280,14 +1351,11 @@ class UninstallerApp(QWidget):
         self.select_all_checkbox.setEnabled(False)
         self.list_widget.clear()
 
-        if not self.progress_dialog:
-            self.progress_dialog = QProgressDialog("Detectando software...", "Cancelar", 0, 100, self)
-            self.progress_dialog.setWindowModality(Qt.NonModal)
-            self.progress_dialog.setAutoClose(True)
-        self.progress_dialog.setValue(0)
-        self.progress_dialog.setLabelText("Detectando software...")
-        self.progress_dialog.show()
-
+        # Mostrar diálogo personalizado con "Trabajando" y rueda giratoria
+        if not self.custom_progress_dialog:
+            self.custom_progress_dialog = CustomProgressDialog(self)
+        self.custom_progress_dialog.label.setText("Trabajando...")
+        self.custom_progress_dialog.show()
 
         self.worker = Worker(mode='detect')
         self.worker.progress.connect(self.update_progress)
@@ -1295,17 +1363,17 @@ class UninstallerApp(QWidget):
         self.worker.start()
 
     def update_progress(self, value, message):
-        if self.progress_dialog and self.progress_dialog.isVisible():
-            self.progress_dialog.setValue(value)
-            self.progress_dialog.setLabelText(message)
+        # El diálogo personalizado siempre muestra "Trabajando..."
+        # Ignoramos el mensaje específico para mantener consistencia
+        if self.custom_progress_dialog and self.custom_progress_dialog.isVisible():
             QApplication.processEvents()
 
     def on_detection_complete(self, detected_list):
         self.detected_software = detected_list
         self.detect_button.setEnabled(True)
 
-        if self.progress_dialog:
-            self.progress_dialog.close()
+        if self.custom_progress_dialog:
+            self.custom_progress_dialog.close()
 
         if not self.detected_software:
             self.info_label.setText("No se detectó software conocido no deseado.")
@@ -1392,14 +1460,11 @@ class UninstallerApp(QWidget):
         self.remove_button.setEnabled(False)
         self.select_all_checkbox.setEnabled(False)
 
-        if not self.progress_dialog_remove:
-            self.progress_dialog_remove = QProgressDialog("Eliminando software...", "Cancelar (No recomendado)", 0, 100, self)
-            self.progress_dialog_remove.setWindowModality(Qt.WindowModal)
-            self.progress_dialog_remove.setAutoClose(False)
-            self.progress_dialog_remove.setAutoReset(False)
-        self.progress_dialog_remove.setValue(0)
-        self.progress_dialog_remove.setLabelText("Iniciando eliminación...")
-        self.progress_dialog_remove.show()
+        # Mostrar diálogo personalizado con "Trabajando" y rueda giratoria
+        if not self.custom_progress_dialog:
+            self.custom_progress_dialog = CustomProgressDialog(self)
+        self.custom_progress_dialog.label.setText("Trabajando...")
+        self.custom_progress_dialog.show()
 
         self.worker = Worker(mode='remove', apps_to_remove=apps_to_remove)
         self.worker.progress.connect(self.update_removal_progress)
@@ -1407,15 +1472,15 @@ class UninstallerApp(QWidget):
         self.worker.start()
 
     def update_removal_progress(self, value, message):
-        if self.progress_dialog_remove and self.progress_dialog_remove.isVisible():
-            self.progress_dialog_remove.setValue(value)
-            self.progress_dialog_remove.setLabelText(message)
+        # El diálogo personalizado siempre muestra "Trabajando..."
+        # Ignoramos el mensaje específico para mantener consistencia
+        if self.custom_progress_dialog and self.custom_progress_dialog.isVisible():
             QApplication.processEvents()
 
 
     def on_removal_complete(self, results):
-        if self.progress_dialog_remove:
-            self.progress_dialog_remove.close()
+        if self.custom_progress_dialog:
+            self.custom_progress_dialog.close()
 
         self.info_label.setText("Proceso de eliminación completado. Revisa los resultados. Se recomienda reiniciar el sistema.")
         self.detect_button.setEnabled(True)
