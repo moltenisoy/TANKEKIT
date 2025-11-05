@@ -1,7 +1,12 @@
 # -*- coding: utf-8 -*-
 import subprocess
 import sys
+import os
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
+from themes import get_theme_metadata
+
+# Display launcher header
 print("""
 ╔═══════════════════════════════════════════════════════════════╗
 ║                   TANKEKIT V3.0 - LAUNCHER                    ║
@@ -9,17 +14,18 @@ print("""
 ╚═══════════════════════════════════════════════════════════════╝
 
 Elige tu tema favorito / Choose your favorite theme:
-
-1. 🟨 CYBERPUNK 2077    - Futurista neón amarillo/magenta
-2. 🔵 PS5               - Minimalista blanco/azul limpio  
-3. 🟢 XBOX 360          - Verde clásico gaming
-4. 💜 GTA 6             - Vice City neon multi-color
-5. 💚 MATRIX            - Terminal hacker verde
-6. ⚪ ORIGINAL          - Sin tema (clásico)
-
-0. ❌ Salir / Exit
-
 """)
+
+# Display themes from unified themes module
+themes_meta = get_theme_metadata()
+theme_order = ["cyberpunk", "ps5", "xbox360", "gta6", "matrix"]
+for idx, theme_key in enumerate(theme_order, 1):
+    meta = themes_meta[theme_key]
+    print(f"{idx}. {meta['icon']} {meta['name']:<15} - {meta['description']}")
+
+print("6. ⚪ ORIGINAL          - Sin tema (clásico)")
+print("\n0. ❌ Salir / Exit")
+print()
 
 themes = {
     "1": "tankekit_cyberpunk.py",

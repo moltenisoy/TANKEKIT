@@ -68,6 +68,9 @@ logging.getLogger().addHandler(console_handler)
 # Import bloatware database
 from bloatware_database import TARGET_SOFTWARE
 
+# Import themes module
+from themes import get_all_themes, get_theme_metadata
+
 
 def is_admin():
     """ Comprueba si el script se ejecuta con privilegios de administrador """
@@ -1357,7 +1360,7 @@ class UninstallerApp(QWidget):
         self.initUI()
 
     def initUI(self):
-        self.setWindowTitle('Desinstalador Agresivo de Software')
+        self.setWindowTitle('TANKEKIT - Desinstalador Agresivo de Software')
         
         # Set window icon if available
         icon_path = Path(__file__).parent / 'app_icon.ico'
@@ -1367,6 +1370,25 @@ class UninstallerApp(QWidget):
         self.setGeometry(200, 200, 800, 600)
 
         layout = QVBoxLayout()
+
+        # Theme selector at the top
+        theme_layout = QHBoxLayout()
+        theme_label = QLabel("Tema / Theme:")
+        self.theme_combo = QComboBox()
+        
+        # Add themes from unified module
+        theme_metadata = get_theme_metadata()
+        self.theme_combo.addItem("⚪ Original (Sin tema)", "")
+        theme_order = ["cyberpunk", "ps5", "xbox360", "gta6", "matrix"]
+        for theme_key in theme_order:
+            meta = theme_metadata[theme_key]
+            self.theme_combo.addItem(f"{meta['icon']} {meta['name']}", theme_key)
+        
+        self.theme_combo.currentIndexChanged.connect(self.change_theme)
+        theme_layout.addWidget(theme_label)
+        theme_layout.addWidget(self.theme_combo)
+        theme_layout.addStretch()
+        layout.addLayout(theme_layout)
 
         self.info_label = QLabel("Bienvenido. Haz clic en 'Detectar Software' para comenzar.")
         layout.addWidget(self.info_label)
@@ -1455,6 +1477,18 @@ class UninstallerApp(QWidget):
 
         self.remove_button.setEnabled(True)
 
+
+    def change_theme(self, index):
+        """Apply selected theme to the application"""
+        theme_key = self.theme_combo.itemData(index)
+        if theme_key:
+            # Apply theme from unified themes module
+            all_themes = get_all_themes()
+            if theme_key in all_themes:
+                self.setStyleSheet(all_themes[theme_key])
+        else:
+            # Reset to default (no theme)
+            self.setStyleSheet("")
 
     def toggle_select_all(self, state):
         check_state = Qt.Checked if state == Qt.Checked else Qt.Unchecked
