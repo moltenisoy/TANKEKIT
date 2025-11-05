@@ -31,6 +31,7 @@ except ImportError:
     import wmi
 
 try:
+    # QComboBox imported for themed versions that extend UninstallerApp (tankekit_*.py)
     from PySide6.QtWidgets import (QApplication, QWidget, QVBoxLayout, QPushButton,
                                     QListWidget, QListWidgetItem, QLabel, QMessageBox,
                                     QDialog, QDialogButtonBox, QProgressDialog, QCheckBox, QHBoxLayout, QComboBox)
@@ -180,15 +181,19 @@ def handle_shutil_error(func, path, excinfo):
 
 class SpinningWheel(QWidget):
     """Widget que muestra una rueda giratoria animada mejorada"""
+    
+    ANIMATION_INTERVAL_MS = 30  # Timer interval for smooth animation (33.3 FPS)
+    ROTATION_INCREMENT = 8      # Degrees to rotate per frame
+    
     def __init__(self, parent=None):
         super().__init__(parent)
         self.angle = 0
         self.setFixedSize(60, 60)
         
-        # Timer para animar la rueda - más suave con 30ms
+        # Timer para animar la rueda
         self.timer = QTimer(self)
         self.timer.timeout.connect(self.rotate)
-        self.timer.start(30)
+        self.timer.start(self.ANIMATION_INTERVAL_MS)
     
     def __del__(self):
         """Cleanup: detener el timer al destruir el widget"""
@@ -196,8 +201,8 @@ class SpinningWheel(QWidget):
             self.timer.stop()
     
     def rotate(self):
-        """Rota la rueda - incremento más suave"""
-        self.angle = (self.angle + 8) % 360
+        """Rota la rueda"""
+        self.angle = (self.angle + self.ROTATION_INCREMENT) % 360
         self.update()
     
     def paintEvent(self, event):

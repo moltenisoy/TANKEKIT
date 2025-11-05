@@ -2121,7 +2121,7 @@ TARGET_SOFTWARE = {
     },
     "Java (old versions)": {
         "type": "Security Risk",
-        "detection": ['Java 6', 'Java 7', 'Java 1.6', 'Java 1.7'],
+        "detection": ['Java 6', 'Java 7', 'Java 1.6', 'Java 1.7', 'jre1.6', 'jre1.7', 'jdk1.6', 'jdk1.7', 'jre-6', 'jre-7'],
         "reason": "Outdated Java versions with known critical security vulnerabilities. If Java is needed, update to latest version immediately.",
     },
     "Internet Explorer": {
