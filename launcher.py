@@ -16,10 +16,11 @@ print("""
 Elige tu tema favorito / Choose your favorite theme:
 """)
 
-# Display themes from unified themes module
+# Display themes from unified themes module (sorted by display_order)
+from themes import get_theme_list
 themes_meta = get_theme_metadata()
-theme_order = ["cyberpunk", "ps5", "xbox360", "gta6", "matrix"]
-for idx, theme_key in enumerate(theme_order, 1):
+theme_list = get_theme_list(sorted_by_display_order=True)
+for idx, theme_key in enumerate(theme_list, 1):
     meta = themes_meta[theme_key]
     print(f"{idx}. {meta['icon']} {meta['name']:<15} - {meta['description']}")
 

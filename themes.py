@@ -10,31 +10,41 @@ THEME_METADATA = {
         "name": "CYBERPUNK 2077",
         "description": "Futurista neón amarillo/magenta",
         "icon": "🟨",
-        "colors": ["#fcee09", "#ff00ff", "#00ffff"]
+        "colors": ["#fcee09", "#ff00ff", "#00ffff"],
+        "version": "1.0",
+        "display_order": 1
     },
     "ps5": {
         "name": "PS5",
         "description": "Minimalista blanco/azul limpio",
         "icon": "🔵",
-        "colors": ["#0070cc", "#ffffff", "#f2f2f2"]
+        "colors": ["#0070cc", "#ffffff", "#f2f2f2"],
+        "version": "1.0",
+        "display_order": 2
     },
     "xbox360": {
         "name": "XBOX 360",
         "description": "Verde clásico gaming",
         "icon": "🟢",
-        "colors": ["#9bca3b", "#2d2d2d", "#ffffff"]
+        "colors": ["#9bca3b", "#2d2d2d", "#ffffff"],
+        "version": "1.0",
+        "display_order": 3
     },
     "gta6": {
         "name": "GTA 6",
         "description": "Vice City neon multi-color",
         "icon": "💜",
-        "colors": ["#ff00ff", "#8338ec", "#3a86ff"]
+        "colors": ["#ff00ff", "#8338ec", "#3a86ff"],
+        "version": "1.0",
+        "display_order": 4
     },
     "matrix": {
         "name": "MATRIX",
         "description": "Terminal hacker verde",
         "icon": "💚",
-        "colors": ["#00ff00", "#000000"]
+        "colors": ["#00ff00", "#000000"],
+        "version": "1.0",
+        "display_order": 5
     }
 }
 
@@ -1285,9 +1295,14 @@ def get_theme(theme_key):
         theme_key: One of 'cyberpunk', 'ps5', 'xbox360', 'gta6', 'matrix'
     
     Returns:
-        Theme stylesheet string, or None if theme not found
+        Theme stylesheet string
+    
+    Raises:
+        ValueError: If theme_key is not valid
     """
-    return THEMES.get(theme_key)
+    if theme_key not in THEMES:
+        raise ValueError(f"Invalid theme key: '{theme_key}'. Available themes: {list(THEMES.keys())}")
+    return THEMES[theme_key]
 
 def get_all_themes():
     """Returns dictionary of all available themes"""
@@ -1307,6 +1322,17 @@ def get_theme_metadata(theme_key=None):
         return THEME_METADATA.get(theme_key)
     return THEME_METADATA.copy()
 
-def get_theme_list():
-    """Returns list of available theme keys"""
+def get_theme_list(sorted_by_display_order=True):
+    """
+    Returns list of available theme keys
+    
+    Args:
+        sorted_by_display_order: If True, returns themes sorted by display_order
+    
+    Returns:
+        List of theme keys
+    """
+    if sorted_by_display_order:
+        # Sort by display_order from metadata
+        return sorted(THEMES.keys(), key=lambda k: THEME_METADATA[k].get('display_order', 999))
     return list(THEMES.keys())

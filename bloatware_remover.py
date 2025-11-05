@@ -1376,11 +1376,12 @@ class UninstallerApp(QWidget):
         theme_label = QLabel("Tema / Theme:")
         self.theme_combo = QComboBox()
         
-        # Add themes from unified module
+        # Add themes from unified module (sorted by display_order)
+        from themes import get_theme_list
         theme_metadata = get_theme_metadata()
         self.theme_combo.addItem("⚪ Original (Sin tema)", "")
-        theme_order = ["cyberpunk", "ps5", "xbox360", "gta6", "matrix"]
-        for theme_key in theme_order:
+        theme_list = get_theme_list(sorted_by_display_order=True)
+        for theme_key in theme_list:
             meta = theme_metadata[theme_key]
             self.theme_combo.addItem(f"{meta['icon']} {meta['name']}", theme_key)
         
@@ -1483,9 +1484,13 @@ class UninstallerApp(QWidget):
         theme_key = self.theme_combo.itemData(index)
         if theme_key:
             # Apply theme from unified themes module
-            all_themes = get_all_themes()
-            if theme_key in all_themes:
-                self.setStyleSheet(all_themes[theme_key])
+            from themes import get_theme
+            try:
+                style = get_theme(theme_key)
+                self.setStyleSheet(style)
+            except ValueError as e:
+                logging.error(f"Error applying theme: {e}")
+                self.setStyleSheet("")  # Fallback to default
         else:
             # Reset to default (no theme)
             self.setStyleSheet("")
