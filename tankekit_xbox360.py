@@ -4,7 +4,7 @@ import os
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 from bloatware_remover import *
-from theme_xbox360 import get_xbox360_style
+from themes import get_xbox360_style
 from i18n import i18n
 
 class Xbox360UninstallerApp(UninstallerApp):

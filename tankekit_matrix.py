@@ -4,7 +4,7 @@ import os
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 from bloatware_remover import *
-from theme_matrix import get_matrix_style
+from themes import get_matrix_style
 from i18n import i18n
 
 class MatrixUninstallerApp(UninstallerApp):
