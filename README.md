@@ -14,16 +14,21 @@ Una herramienta potente y agresiva para eliminar software no deseado, bloatware,
 
 ## 🆕 Novedades en Esta Versión
 
-### Refactorización Completa V2.0
-- ✅ **Código optimizado a 2 archivos**: `bloatware_database.py` (datos) y `bloatware_remover.py` (GUI + lógica)
-- ✅ **Base de datos DUPLICADA**: 41 → 112 → 226 entradas (+450% más software detectado)
-- ✅ **Métodos de eliminación mejorados**: 7 → 9 métodos diferentes
-- ✅ **Sistema de verificación**: Comprobación completa post-eliminación
-- ✅ **Diálogos de progreso mejorados**: Título personalizado "TANKEKIT", animación de rueda giratoria, texto "Trabajando"
-- ✅ **Análisis de código**: 10 métodos de análisis aplicados y errores corregidos
-- ✅ **Seguridad mejorada**: Vulnerabilidades corregidas, validación de entrada
+### 🎨 VERSIÓN 3.0 - THEMED EDITIONS
+- ✅ **5 TEMAS VISUALES PROFESIONALES**: Cyberpunk 2077, PS5, Xbox 360, GTA 6, Matrix
+- ✅ **INTERNACIONALIZACIÓN COMPLETA**: Español Latino + English con selector en GUI
+- ✅ **BASE DE DATOS EXPANDIDA**: 226 → 310 entradas (+37% más software)
+- ✅ **MODULAR Y PROFESIONAL**: Diseño listo para comercialización
+- ✅ **CÓDIGO OPTIMIZADO**: Comentarios reducidos, estructura mejorada
 
-### Base de Datos DUPLICADA (226 Entradas)
+### Características V3.0
+- 🎨 **5 temas únicos inspirados en videojuegos**: Cada uno con diseño profesional completo
+- 🌍 **Soporte bilingüe**: Español Latino e Inglés con cambio en tiempo real
+- 📊 **84 programas nuevos**: Total de 310 entradas detectables
+- 🚀 **Lanzadores independientes**: Un archivo .py por cada tema
+- 💎 **Calidad profesional**: Diseños pulidos y listos para venta
+
+### Base de Datos Expandida (310 Entradas)
 
 Cada entrada incluye:
 - **Nombre del software**
@@ -31,7 +36,7 @@ Cada entrada incluye:
 - **Patrones de detección** (nombres, publicadores, paquetes)
 - **Razón detallada** explicando por qué es problemático
 
-#### Categorías Incluidas (226 entradas totales):
+#### Categorías Incluidas (310 entradas totales):
 - **Bloatware de Windows**: Apps preinstaladas innecesarias (3D Viewer, Paint 3D, etc.)
 - **Juegos y Adware**: Candy Crush, Farm Heroes, Roblox, Disney Magic Kingdoms, etc.
 - **Redes Sociales**: TikTok, Facebook, Instagram, Twitter, etc.
@@ -48,6 +53,13 @@ Cada entrada incluye:
 - **Bundleware**: OpenCandy, Installcore, Amonetize, DVDVideoSoft, etc.
 - **Servicios de Terceros**: Bonjour, Adobe Update, Google Update, Java Auto Updater, etc.
 - **Software Peligroso**: KMSPico, Hola VPN, Chromium Malware, RelevantKnowledge, etc.
+- **🆕 Herramientas de Backup**: EaseUS, Acronis, AOMEI, Macrium, Paragon, NovaBACKUP, etc.
+- **🆕 Gestores de Particiones**: MiniTool, AOMEI Partition, EaseUS Partition, Paragon, etc.
+- **🆕 Recuperación de Datos**: Stellar, Recuva, Disk Drill, Wondershare Recoverit, R-Studio, etc.
+- **🆕 Plataformas de Juegos OEM**: Steam, Origin, Epic, Battle.net, GOG Galaxy, Ubisoft Connect, etc.
+- **🆕 Acceso Remoto**: TeamViewer, AnyDesk, LogMeIn, Splashtop, VNC Viewer, etc.
+- **🆕 Actualizadores**: SUMo, FileHippo, Patch My PC, Ninite, Chocolatey GUI, etc.
+- **🆕 Desinstaladores**: Revo, Geek Uninstaller, Your Uninstaller, Bulk Crap Uninstaller, etc.
 
 ## 🚀 Características
 
@@ -105,12 +117,40 @@ python bloatware_remover.py
 
 ## 💻 Uso
 
-### Ejecución
+### 🎨 Versiones Temáticas (NUEVO V3.0)
+
+Ahora puedes elegir entre 5 temas visuales profesionales:
+
+```bash
+# Tema Cyberpunk 2077 - Neon amarillo/magenta
+python tankekit_cyberpunk.py
+
+# Tema PS5 - Minimalista blanco/azul
+python tankekit_ps5.py
+
+# Tema Xbox 360 - Verde clásico
+python tankekit_xbox360.py
+
+# Tema GTA 6 - Vice City neon multi-color
+python tankekit_gta6.py
+
+# Tema Matrix - Terminal verde
+python tankekit_matrix.py
+```
+
+Ver [THEMED_VERSIONS.md](THEMED_VERSIONS.md) para capturas y detalles de cada tema.
+
+### Ejecución Clásica (sin tema)
 ```bash
 python bloatware_remover.py
 ```
 
 La aplicación solicitará automáticamente privilegios de administrador.
+
+### 🌍 Cambio de Idioma
+Todas las versiones incluyen selector de idioma en la GUI:
+- Español Latino (predeterminado)
+- English (seleccionable)
 
 ### Interfaz Gráfica
 1. **Click "Detectar Software No Deseado"**: Escanea el sistema
@@ -143,22 +183,39 @@ Los logs detallados se guardan en:
 
 ```
 TANKEKIT/
-├── bloatware_database.py     # Base de datos (112 entradas)
+├── bloatware_database.py      # Base de datos (310 entradas)
 │   ├── TARGET_SOFTWARE dict
 │   ├── get_software_info()
 │   ├── get_software_count()
 │   └── get_software_by_type()
 │
-├── bloatware_remover.py       # Aplicación principal
+├── bloatware_remover.py        # Motor principal
 │   ├── Worker class (detección/eliminación)
-│   ├── UninstallerApp class (GUI)
+│   ├── UninstallerApp class (GUI base)
 │   ├── 9 métodos de eliminación
 │   └── Sistema de verificación
 │
-├── 2eliminabloatware2.py      # Original (referencia)
-├── CAMBIOS.md                 # Documentación detallada de cambios
-├── README.md                  # Este archivo
-└── .gitignore                 # Archivos ignorados
+├── i18n.py                     # 🆕 Sistema de internacionalización
+│
+├── theme_*.py                  # 🆕 5 archivos de estilos visuales
+│   ├── theme_cyberpunk.py
+│   ├── theme_ps5.py
+│   ├── theme_xbox360.py
+│   ├── theme_gta6.py
+│   └── theme_matrix.py
+│
+├── tankekit_*.py               # 🆕 5 launchers temáticos
+│   ├── tankekit_cyberpunk.py
+│   ├── tankekit_ps5.py
+│   ├── tankekit_xbox360.py
+│   ├── tankekit_gta6.py
+│   └── tankekit_matrix.py
+│
+├── THEMED_VERSIONS.md          # 🆕 Documentación de temas
+├── CAMBIOS_V3.md               # 🆕 Cambios versión 3.0
+├── CAMBIOS.md                  # Historial de cambios
+├── README.md                   # Este archivo
+└── .gitignore                  # Archivos ignorados
 ```
 
 ## 🛡️ Seguridad
@@ -179,16 +236,18 @@ TANKEKIT/
 
 ## 📈 Estadísticas
 
-| Métrica | Valor Original | Valor Actual | Mejora |
-|---------|----------------|--------------|--------|
-| Entradas en BD | 41 | 226 | +451% |
-| Métodos eliminación | 7 | 9 | +28% |
-| Métodos detección | 4 | 5 | +25% |
-| Verificación | No | Sí (5 puntos) | ∞ |
-| Archivos | 3 | 2 (optimizado) | -33% |
-| Líneas de código | ~1375 | ~2300 | +67% |
-| Descripciones detalladas | No | Sí (todas 226) | ∞ |
-| Diálogo de progreso | Estándar | Personalizado con animación | ∞ |
+| Métrica | V1.0 | V2.0 | V3.0 | Mejora Total |
+|---------|------|------|------|--------------|
+| Entradas en BD | 41 | 226 | **310** | **+656%** |
+| Métodos eliminación | 7 | 9 | 9 | +28% |
+| Métodos detección | 4 | 5 | 5 | +25% |
+| Verificación | No | Sí | Sí (5 puntos) | ∞ |
+| Temas visuales | 0 | 0 | **5** | **∞** |
+| Idiomas | 1 | 1 | **2** | **+100%** |
+| Archivos principales | 3 | 2 | **2+13** | Modular |
+| Sistema i18n | No | No | **Sí** | **∞** |
+| Lanzadores temáticos | 0 | 0 | **5** | **∞** |
+| Calidad visual | Básica | Buena | **Profesional** | **+++** |
 
 ## 🐛 Problemas Conocidos
 
@@ -235,5 +294,6 @@ Este software se proporciona "tal cual" sin garantías de ningún tipo. Los auto
 
 **Desarrollado con ❤️ para limpiar Windows de bloatware**
 
-**Versión**: 2.1 (Base de Datos Duplicada + UI Mejorada)  
-**Última actualización**: Enero 2025
+**Versión**: 3.0 (Themed Editions + i18n + Base de Datos Expandida)  
+**Última actualización**: Enero 2025  
+**5 Temas Únicos | 2 Idiomas | 310 Programas | Listo para Venta**
