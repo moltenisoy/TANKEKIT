@@ -14,15 +14,16 @@ Una herramienta potente y agresiva para eliminar software no deseado, bloatware,
 
 ## 🆕 Novedades en Esta Versión
 
-### Refactorización Completa
-- ✅ **Código dividido en módulos**: `bloatware_database.py` (datos) y `bloatware_remover.py` (lógica)
-- ✅ **Base de datos expandida**: 41 → 112 entradas (173% más software detectado)
+### Refactorización Completa V2.0
+- ✅ **Código optimizado a 2 archivos**: `bloatware_database.py` (datos) y `bloatware_remover.py` (GUI + lógica)
+- ✅ **Base de datos DUPLICADA**: 41 → 112 → 226 entradas (+450% más software detectado)
 - ✅ **Métodos de eliminación mejorados**: 7 → 9 métodos diferentes
 - ✅ **Sistema de verificación**: Comprobación completa post-eliminación
+- ✅ **Diálogos de progreso mejorados**: Título personalizado "TANKEKIT", animación de rueda giratoria, texto "Trabajando"
 - ✅ **Análisis de código**: 10 métodos de análisis aplicados y errores corregidos
 - ✅ **Seguridad mejorada**: Vulnerabilidades corregidas, validación de entrada
 
-### Base de Datos Expandida (112 Entradas)
+### Base de Datos DUPLICADA (226 Entradas)
 
 Cada entrada incluye:
 - **Nombre del software**
@@ -30,17 +31,23 @@ Cada entrada incluye:
 - **Patrones de detección** (nombres, publicadores, paquetes)
 - **Razón detallada** explicando por qué es problemático
 
-#### Categorías Incluidas:
-- **Bloatware de Windows**: Apps preinstaladas innecesarias
-- **Juegos y Adware**: Candy Crush, Farm Heroes, etc.
-- **Redes Sociales**: TikTok, Facebook, Instagram, Twitter
-- **Streaming**: Netflix, Prime Video, Spotify
-- **Antivirus Trial**: McAfee, Norton, Segurazo
-- **Optimizadores Falsos**: CCleaner, Advanced SystemCare, PC Speed Up
-- **Actualizadores de Drivers**: Driver Booster, DriverPack Solution
-- **Toolbars y Hijackers**: Ask Toolbar, MyWay, Conduit, Babylon
-- **OEM Bloatware**: HP, Dell, Lenovo, ASUS, Acer, MSI, Samsung
-- **Software Peligroso**: KMSPico, Hola VPN, RelevantKnowledge
+#### Categorías Incluidas (226 entradas totales):
+- **Bloatware de Windows**: Apps preinstaladas innecesarias (3D Viewer, Paint 3D, etc.)
+- **Juegos y Adware**: Candy Crush, Farm Heroes, Roblox, Disney Magic Kingdoms, etc.
+- **Redes Sociales**: TikTok, Facebook, Instagram, Twitter, etc.
+- **Streaming**: Netflix, Prime Video, Spotify, etc.
+- **Antivirus Agresivo**: McAfee, Norton, Avast, AVG, Avira, Bitdefender, etc.
+- **Antivirus Falso/Rogue**: Segurazo, SpyHunter, Windows Malware Defender, Antimalware Doctor, etc.
+- **Optimizadores Falsos**: CCleaner, Advanced SystemCare, PC Speed Up, MyCleanPC, iolo, etc.
+- **Limpiadores de Registro**: RegClean Pro, WinThruster, Wise Registry Cleaner, etc.
+- **Actualizadores de Drivers**: Driver Booster, DriverPack Solution, Driver Easy, SlimDrivers, etc.
+- **Toolbars y Hijackers**: Ask Toolbar, MyWay, Conduit, Babylon, Search Baron, Trovi, etc.
+- **Adware de Compras**: SaveSense, PriceMeter, Shopper Pro, CouponBar, etc.
+- **Software Chino**: 360 Total Security, Baidu Antivirus, Tencent PC Manager, etc.
+- **OEM Bloatware**: HP, Dell, Lenovo, ASUS, Acer, MSI, Samsung, Toshiba, Sony, Fujitsu, etc.
+- **Bundleware**: OpenCandy, Installcore, Amonetize, DVDVideoSoft, etc.
+- **Servicios de Terceros**: Bonjour, Adobe Update, Google Update, Java Auto Updater, etc.
+- **Software Peligroso**: KMSPico, Hola VPN, Chromium Malware, RelevantKnowledge, etc.
 
 ## 🚀 Características
 
@@ -174,13 +181,14 @@ TANKEKIT/
 
 | Métrica | Valor Original | Valor Actual | Mejora |
 |---------|----------------|--------------|--------|
-| Entradas en BD | 41 | 112 | +173% |
+| Entradas en BD | 41 | 226 | +451% |
 | Métodos eliminación | 7 | 9 | +28% |
 | Métodos detección | 4 | 5 | +25% |
 | Verificación | No | Sí (5 puntos) | ∞ |
-| Archivos | 1 | 2 (modular) | - |
-| Líneas de código | ~1375 | ~2200 | +60% |
-| Descripciones | No | Sí (todas) | ∞ |
+| Archivos | 3 | 2 (optimizado) | -33% |
+| Líneas de código | ~1375 | ~2300 | +67% |
+| Descripciones detalladas | No | Sí (todas 226) | ∞ |
+| Diálogo de progreso | Estándar | Personalizado con animación | ∞ |
 
 ## 🐛 Problemas Conocidos
 
@@ -227,5 +235,5 @@ Este software se proporciona "tal cual" sin garantías de ningún tipo. Los auto
 
 **Desarrollado con ❤️ para limpiar Windows de bloatware**
 
-**Versión**: 2.0 (Refactorizada)  
-**Última actualización**: Noviembre 2025
+**Versión**: 2.1 (Base de Datos Duplicada + UI Mejorada)  
+**Última actualización**: Enero 2025
