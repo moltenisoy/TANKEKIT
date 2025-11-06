@@ -93,7 +93,8 @@ def get_hkey_name(hkey):
             if key == handle_val:
                 return name
         return str(handle_val)
-    except:
+    except Exception as e:
+        logging.debug(f"Error getting hkey name: {e}")
         return str(hkey)
 
 
@@ -1247,8 +1248,9 @@ class Worker(QThread):
                     # Intento de parseo más robusto usando shlex o regex
                     import shlex
                     cmd_parts = shlex.split(uninstall_str)
-                except:
+                except Exception as e:
                         # Fallback a método simple si shlex falla
+                        logging.debug(f"Shlex parsing failed: {e}")
                         if '"' in uninstall_str:
                             parts = uninstall_str.split('"')
                             cmd_parts.append(parts[1])
@@ -1719,7 +1721,7 @@ if __name__ == '__main__':
             try: # Try to show graphical message if Qt was already imported
                 app_temp = QApplication.instance() or QApplication(sys.argv)
                 QMessageBox.critical(None, i18n.get("permission_error"), i18n.get("admin_required"))
-            except:
+            except Exception:
                 input("Presiona Enter para salir.") # Fallback a consola
             sys.exit(1)
 
