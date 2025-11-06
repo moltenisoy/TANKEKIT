@@ -78,7 +78,6 @@ QPushButton:hover {
     background-color: #fcee09;
     color: #0a0a0a;
     border: 2px solid #ff00ff;
-    box-shadow: 0 0 20px #fcee09;
 }
 
 QPushButton:pressed {
@@ -157,14 +156,12 @@ QCheckBox::indicator:checked {
 }
 
 QCheckBox::indicator:checked:after {
-    content: "✓";
     color: #0a0a0a;
     font-weight: bold;
 }
 
 QCheckBox::indicator:hover {
     border: 2px solid #ff00ff;
-    box-shadow: 0 0 10px #ff00ff;
 }
 
 QDialog {
@@ -812,7 +809,6 @@ QPushButton:hover {
         stop: 1 #5ba3ff
     );
     border: 2px solid #00ffff;
-    box-shadow: 0 0 15px #ff00ff;
 }
 
 QPushButton:pressed {
@@ -908,7 +904,6 @@ QCheckBox::indicator:checked {
 
 QCheckBox::indicator:hover {
     border: 2px solid #00ffff;
-    box-shadow: 0 0 10px #ff00ff;
 }
 
 QDialog {
@@ -962,7 +957,6 @@ QComboBox {
 
 QComboBox:hover {
     border: 2px solid #00ffff;
-    box-shadow: 0 0 10px #ff00ff;
 }
 
 QComboBox::drop-down {
@@ -1071,7 +1065,6 @@ QPushButton:hover {
     background-color: #00ff00;
     color: #000000;
     border: 2px solid #00cc00;
-    box-shadow: 0 0 15px #00ff00, inset 0 0 10px #00ff00;
 }
 
 QPushButton:pressed {
@@ -1150,7 +1143,6 @@ QCheckBox::indicator:checked {
 
 QCheckBox::indicator:hover {
     border: 2px solid #00ff00;
-    box-shadow: 0 0 10px #00ff00;
 }
 
 QDialog {
@@ -1197,7 +1189,6 @@ QComboBox {
 
 QComboBox:hover {
     border: 2px solid #00cc00;
-    box-shadow: 0 0 10px #00ff00;
 }
 
 QComboBox::drop-down {

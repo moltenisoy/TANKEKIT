@@ -66,11 +66,45 @@ logging.getLogger().addHandler(console_handler)
 
 
 # Import bloatware database
-from bloatware_database import TARGET_SOFTWARE
+from database import TARGET_SOFTWARE
 
 # Import themes module
 from themes import get_all_themes, get_theme_metadata
 
+# Import internationalization module
+from i18n import i18n
+
+
+
+# Helper function to get registry hive name (winreg.HKEY_NAMES doesn't exist)
+def get_hkey_name(hkey):
+    """Get the name of a registry hive"""
+    hkey_map = {
+        winreg.HKEY_LOCAL_MACHINE: "HKEY_LOCAL_MACHINE",
+        winreg.HKEY_CURRENT_USER: "HKEY_CURRENT_USER",
+        winreg.HKEY_CLASSES_ROOT: "HKEY_CLASSES_ROOT",
+        winreg.HKEY_USERS: "HKEY_USERS",
+        winreg.HKEY_CURRENT_CONFIG: "HKEY_CURRENT_CONFIG",
+    }
+    # Try to get the handle value if it's a PyHKEY object
+    try:
+        handle_val = hkey.handle if hasattr(hkey, 'handle') else hkey
+        for key, name in hkey_map.items():
+            if key == handle_val:
+                return name
+        return str(handle_val)
+    except:
+        return str(hkey)
+
+
+# Helper function to get application icon
+def get_app_icon():
+    """Get the application icon if it exists"""
+    import os
+    icon_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), '1.ico')
+    if os.path.exists(icon_path):
+        return QIcon(icon_path)
+    return QIcon()
 
 def is_admin():
     """ Comprueba si el script se ejecuta con privilegios de administrador """
@@ -240,14 +274,15 @@ class CustomProgressDialog(QDialog):
     def __init__(self, parent=None):
         super().__init__(parent)
         self.setWindowTitle("TANKEKIT")
+        self.setWindowIcon(get_app_icon())
         self.setModal(True)
         self.setFixedSize(400, 150)
         
         layout = QVBoxLayout()
         layout.setSpacing(15)
         
-        # Label de "Trabajando" con estilo mejorado
-        self.label = QLabel("Trabajando...")
+        # Label de trabajo con estilo mejorado
+        self.label = QLabel(i18n.get("working"))
         self.label.setAlignment(Qt.AlignCenter)
         font = self.label.font()
         font.setPointSize(14)
@@ -378,7 +413,7 @@ class Worker(QThread):
                                                 "uninstall_string": uninstall_string,
                                                 "install_location": install_location,
                                                 "product_code": product_code,
-                                                "registry_path": f"{winreg.HKEY_NAMES.get(root_hive.handle, root_hive.handle)}\\{full_subkey_path}",
+                                                "registry_path": f"{get_hkey_name(root_hive)}\\{full_subkey_path}",
                                                 "is_uwp": False,
                                                 "detection_term": target_name,
                                                 "vendor_for_cleanup": publisher,
@@ -393,11 +428,11 @@ class Worker(QThread):
                                 logging.error(f"Error enumerando subclave en {key_path}: {e_inner}")
                                 i += 1
                 except FileNotFoundError:
-                    logging.info(f"Clave de registro no encontrada: {winreg.HKEY_NAMES.get(root_hive.handle, root_hive.handle)}\\{key_path}")
+                    logging.info(f"Clave de registro no encontrada: {get_hkey_name(root_hive)}\\{key_path}")
                 except PermissionError:
-                    logging.warning(f"Permiso denegado al acceder a clave de registro: {winreg.HKEY_NAMES.get(root_hive.handle, root_hive.handle)}\\{key_path}")
+                    logging.warning(f"Permiso denegado al acceder a clave de registro: {get_hkey_name(root_hive)}\\{key_path}")
                 except Exception as e_outer:
-                    logging.error(f"Error al acceder a clave de registro {winreg.HKEY_NAMES.get(root_hive.handle, root_hive.handle)}\\{key_path}: {e_outer}")
+                    logging.error(f"Error al acceder a clave de registro {get_hkey_name(root_hive)}\\{key_path}: {e_outer}")
         logging.info(f"Detección por Registro finalizada. {detected_count} nuevos elementos encontrados.")
 
     def detect_via_uwp_powershell(self, checked_display_names):
@@ -917,9 +952,9 @@ class Worker(QThread):
                 except FileNotFoundError:
                     pass # Es normal si la base no existe en alguna vista
                 except PermissionError:
-                    logging.warning(f"Permiso denegado al acceder a base de registro: {winreg.HKEY_NAMES.get(root_hive.handle, root_hive.handle)}\\{base_path} (Vista: {view})")
+                    logging.warning(f"Permiso denegado al acceder a base de registro: {get_hkey_name(root_hive)}\\{base_path} (Vista: {view})")
                 except Exception as base_err:
-                    logging.error(f"Error accediendo a base de registro {winreg.HKEY_NAMES.get(root_hive.handle, root_hive.handle)}\\{base_path} (Vista: {view}): {base_err}")
+                    logging.error(f"Error accediendo a base de registro {get_hkey_name(root_hive)}\\{base_path} (Vista: {view}): {base_err}")
 
         return deleted_something
 
@@ -1361,6 +1396,36 @@ class UninstallerApp(QWidget):
 
     def initUI(self):
         self.setWindowTitle('TANKEKIT - Desinstalador Agresivo de Software')
+
+        
+        # Theme and Language controls
+        controls_layout = QHBoxLayout()
+        
+        # Theme selector
+        theme_label = QLabel(i18n.get("theme", default="Theme") + ":")
+        self.theme_combo = QComboBox()
+        from themes import get_theme_list, get_theme_metadata
+        themes = get_theme_list(sorted_by_display_order=True)
+        theme_meta = get_theme_metadata()
+        for theme_key in themes:
+            meta = theme_meta[theme_key]
+            self.theme_combo.addItem(f"{meta['icon']} {meta['name']}", theme_key)
+        self.theme_combo.addItem("⚪ ORIGINAL", "original")
+        self.theme_combo.currentIndexChanged.connect(self.change_theme)
+        controls_layout.addWidget(theme_label)
+        controls_layout.addWidget(self.theme_combo)
+        
+        controls_layout.addSpacing(20)
+        
+        # Language selector  
+        lang_label = QLabel(i18n.get("language") + ":")
+        self.lang_combo = QComboBox()
+        self.lang_combo.addItems([i18n.get("spanish"), i18n.get("english")])
+        self.lang_combo.currentIndexChanged.connect(self.change_language)
+        controls_layout.addWidget(lang_label)
+        controls_layout.addWidget(self.lang_combo)
+        
+        controls_layout.addStretch()
         
         # Set window icon if available
         icon_path = Path(__file__).parent / 'app_icon.ico'
@@ -1414,17 +1479,43 @@ class UninstallerApp(QWidget):
 
         self.setLayout(layout)
 
+    
+    def change_theme(self, index):
+        """Change the application theme"""
+        theme_key = self.theme_combo.itemData(index)
+        if theme_key and theme_key != "original":
+            from themes import get_theme
+            try:
+                style = get_theme(theme_key)
+                self.setStyleSheet(style)
+            except Exception as e:
+                logging.error(f"Error applying theme: {e}")
+        else:
+            # Reset to original style
+            self.setStyleSheet("")
+    
+    def change_language(self, index):
+        """Change the application language"""
+        lang = "es" if index == 0 else "en"
+        i18n.set_language(lang)
+        # Update UI text
+        self.setWindowTitle(i18n.get("app_title"))
+        self.info_label.setText(i18n.get("welcome_msg"))
+        self.detect_button.setText(i18n.get("detect_button"))
+        self.remove_button.setText(i18n.get("remove_button"))
+        self.select_all_checkbox.setText(i18n.get("select_all"))
+
     def start_detection(self):
-        self.info_label.setText("Detectando software... por favor espera.")
+        self.info_label.setText(i18n.get("detecting"))
         self.detect_button.setEnabled(False)
         self.remove_button.setEnabled(False)
         self.select_all_checkbox.setEnabled(False)
         self.list_widget.clear()
 
-        # Mostrar diálogo personalizado con "Trabajando" y rueda giratoria
+        # Show custom progress dialog with working indicator
         if not self.custom_progress_dialog:
             self.custom_progress_dialog = CustomProgressDialog(self)
-        self.custom_progress_dialog.label.setText("Trabajando...")
+        self.custom_progress_dialog.label.setText(i18n.get("working"))
         self.custom_progress_dialog.show()
 
         self.worker = Worker(mode='detect')
@@ -1433,9 +1524,8 @@ class UninstallerApp(QWidget):
         self.worker.start()
 
     def update_progress(self, value, message):
-        # El diálogo personalizado siempre muestra "Trabajando..."
-        # value y message se ignoran intencionalmente para mantener consistencia
-        # con el diseño de UI que muestra solo "Trabajando..." sin detalles
+        # Progress dialog always shows working indicator
+        # value and message are intentionally ignored for consistency
         if self.custom_progress_dialog and self.custom_progress_dialog.isVisible():
             QApplication.processEvents()
 
@@ -1447,13 +1537,13 @@ class UninstallerApp(QWidget):
             self.custom_progress_dialog.close()
 
         if not self.detected_software:
-            self.info_label.setText("No se detectó software conocido no deseado.")
-            QMessageBox.information(self, "Detección Completa", "No se encontró software de la lista.")
+            self.info_label.setText(i18n.get("no_software_found"))
+            QMessageBox.information(self, i18n.get("detection_complete"), i18n.get("no_software_in_list"))
             self.remove_button.setEnabled(False)
             self.select_all_checkbox.setEnabled(False)
             return
 
-        self.info_label.setText(f"Se detectaron {len(self.detected_software)} elementos. Selecciona cuáles deseas eliminar:")
+        self.info_label.setText(i18n.get("items_detected", count=len(self.detected_software)))
         self.list_widget.clear()
         self.select_all_checkbox.setEnabled(True)
         self.select_all_checkbox.setChecked(True)
@@ -1510,25 +1600,26 @@ class UninstallerApp(QWidget):
                 selected_items.append(item.data(Qt.UserRole))
 
         if not selected_items:
-            QMessageBox.warning(self, "Nada Seleccionado", "Por favor, selecciona al menos una aplicación para eliminar.")
+            QMessageBox.warning(self, i18n.get("nothing_selected"), i18n.get("select_at_least_one"))
             return
 
         confirm_dialog = QDialog(self)
-        confirm_dialog.setWindowTitle("Confirmar Eliminación Agresiva")
+        confirm_dialog.setWindowTitle(i18n.get("confirm_removal_title"))
+        confirm_dialog.setWindowIcon(get_app_icon())
         dialog_layout = QVBoxLayout()
 
-        label = QLabel(f"<b>¡Atención!</b> Estás a punto de intentar eliminar agresivamente <b>{len(selected_items)}</b> elementos seleccionados.")
+        label = QLabel(i18n.get("confirm_removal_text", count=len(selected_items)))
         label.setWordWrap(True)
         dialog_layout.addWidget(label)
 
-        details_label = QLabel("Esto incluye métodos forzados (terminar procesos, borrar archivos/registro/servicios) que podrían ser irreversibles y, aunque se intenta ser preciso, existe un riesgo inherente si la detección fue incorrecta o si el software es necesario para otro programa. Se recomienda encarecidamente cerrar otras aplicaciones y tener copias de seguridad recientes.")
+        details_label = QLabel(i18n.get("confirm_removal_details"))
         details_label.setStyleSheet("QLabel { color : red; }")
         details_label.setWordWrap(True)
         dialog_layout.addWidget(details_label)
 
         buttons = QDialogButtonBox(QDialogButtonBox.Ok | QDialogButtonBox.Cancel)
-        buttons.button(QDialogButtonBox.Ok).setText("Sí, Proceder con Eliminación")
-        buttons.button(QDialogButtonBox.Cancel).setText("Cancelar")
+        buttons.button(QDialogButtonBox.Ok).setText(i18n.get("proceed_button"))
+        buttons.button(QDialogButtonBox.Cancel).setText(i18n.get("cancel_button"))
         buttons.accepted.connect(confirm_dialog.accept)
         buttons.rejected.connect(confirm_dialog.reject)
         dialog_layout.addWidget(buttons)
@@ -1542,15 +1633,15 @@ class UninstallerApp(QWidget):
 
 
     def start_removal(self, apps_to_remove):
-        self.info_label.setText("Eliminando software seleccionado... por favor espera.")
+        self.info_label.setText(i18n.get("removing"))
         self.detect_button.setEnabled(False)
         self.remove_button.setEnabled(False)
         self.select_all_checkbox.setEnabled(False)
 
-        # Mostrar diálogo personalizado con "Trabajando" y rueda giratoria
+        # Show custom progress dialog with working indicator
         if not self.custom_progress_dialog:
             self.custom_progress_dialog = CustomProgressDialog(self)
-        self.custom_progress_dialog.label.setText("Trabajando...")
+        self.custom_progress_dialog.label.setText(i18n.get("working"))
         self.custom_progress_dialog.show()
 
         self.worker = Worker(mode='remove', apps_to_remove=apps_to_remove)
@@ -1559,9 +1650,8 @@ class UninstallerApp(QWidget):
         self.worker.start()
 
     def update_removal_progress(self, value, message):
-        # El diálogo personalizado siempre muestra "Trabajando..."
-        # value y message se ignoran intencionalmente para mantener consistencia
-        # con el diseño de UI que muestra solo "Trabajando..." sin detalles
+        # Progress dialog always shows working indicator
+        # value and message are intentionally ignored for consistency
         if self.custom_progress_dialog and self.custom_progress_dialog.isVisible():
             QApplication.processEvents()
 
@@ -1570,42 +1660,43 @@ class UninstallerApp(QWidget):
         if self.custom_progress_dialog:
             self.custom_progress_dialog.close()
 
-        self.info_label.setText("Proceso de eliminación completado. Revisa los resultados. Se recomienda reiniciar el sistema.")
+        self.info_label.setText(i18n.get("removal_complete"))
         self.detect_button.setEnabled(True)
         self.remove_button.setEnabled(False) # Deshabilitar hasta nueva detección
         self.select_all_checkbox.setEnabled(False)
 
 
         result_dialog = QDialog(self)
-        result_dialog.setWindowTitle("Resultados de la Eliminación")
+        result_dialog.setWindowTitle(i18n.get("results_title"))
+        result_dialog.setWindowIcon(get_app_icon())
         result_dialog.setMinimumWidth(600)
         dialog_layout = QVBoxLayout()
 
-        result_text = "Resultados del proceso de eliminación:\n\n"
+        result_text = i18n.get("results_title") + ":\n\n"
         successful_removals = 0
         failed_removals = 0
         for result in results:
             result_text += f"- {result['name']}: {result['final_status']}\n"
-            # Opcional: Añadir desglose más detallado si es necesario
-            # result_text += f"  Pasos: {result['steps']}\n"
             result_text += "\n"
-            if "Fallo" not in result['final_status']:
+            # Check for failure indicators in various languages
+            if "Fallo" not in result['final_status'] and "Failed" not in result['final_status']:
                 successful_removals += 1
             else:
                 failed_removals += 1
 
-        summary = f"Resumen: {successful_removals} eliminados/limpiados (total o parcialmente), {failed_removals} fallidos.\n\n"
+        summary = i18n.get("summary", successful=successful_removals, failed=failed_removals) + "\n\n"
 
         result_label = QLabel(summary + result_text)
         result_label.setWordWrap(True)
         dialog_layout.addWidget(result_label)
 
-        log_info_label = QLabel(f"Se ha guardado un registro detallado en:\n{log_file}\n\n<b>Se recomienda reiniciar el sistema para completar la limpieza.</b>")
+        log_info_label = QLabel(i18n.get("log_saved", path=str(log_file)))
         log_info_label.setWordWrap(True)
         dialog_layout.addWidget(log_info_label)
 
 
         buttons = QDialogButtonBox(QDialogButtonBox.Ok)
+        buttons.button(QDialogButtonBox.Ok).setText(i18n.get("ok_button"))
         buttons.accepted.connect(result_dialog.accept)
         dialog_layout.addWidget(buttons)
         result_dialog.setLayout(dialog_layout)
@@ -1624,10 +1715,10 @@ if __name__ == '__main__':
             sys.exit(0)
         else:
             logging.error("No se obtuvieron privilegios de administrador. Saliendo.")
-            print("ERROR: Se requieren privilegios de administrador para ejecutar esta aplicación.")
-            try: # Intentar mostrar mensaje gráfico si Qt ya estaba importado
+            print("ERROR: " + i18n.get("admin_required"))
+            try: # Try to show graphical message if Qt was already imported
                 app_temp = QApplication.instance() or QApplication(sys.argv)
-                QMessageBox.critical(None, "Error de Permisos", "Se requieren privilegios de administrador para ejecutar esta aplicación.")
+                QMessageBox.critical(None, i18n.get("permission_error"), i18n.get("admin_required"))
             except:
                 input("Presiona Enter para salir.") # Fallback a consola
             sys.exit(1)
