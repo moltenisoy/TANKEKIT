@@ -187,7 +187,8 @@ class CodeAnalyzer:
                 if hasattr(node, 'end_lineno'):
                     func_lines = node.end_lineno - node.lineno
                 else:
-                    func_lines = len(node.body) * 2  # Estimación
+                    # Estimación conservadora: ~2 líneas por statement (incluyendo whitespace)
+                    func_lines = len(node.body) * 2
                 
                 if func_lines > 50:
                     self.issues['function_length'].append({
@@ -461,6 +462,7 @@ class CodeAnalyzer:
                 analysis_func()
                 print(f"✓ {name}")
             except Exception as e:
+                logging.error(f"Error in {name}: {e}")
                 print(f"✗ {name}: {e}")
         
         return self.issues

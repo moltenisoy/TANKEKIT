@@ -94,7 +94,7 @@ def get_hkey_name(hkey):
                 return name
         return str(handle_val)
     except Exception as e:
-        logging.debug(f"Error getting hkey name: {e}")
+        logging.warning(f"Error getting hkey name: {e}")
         return str(hkey)
 
 
@@ -1250,7 +1250,7 @@ class Worker(QThread):
                     cmd_parts = shlex.split(uninstall_str)
                 except Exception as e:
                         # Fallback a método simple si shlex falla
-                        logging.debug(f"Shlex parsing failed: {e}")
+                        logging.warning(f"Shlex parsing failed, using fallback method: {e}")
                         if '"' in uninstall_str:
                             parts = uninstall_str.split('"')
                             cmd_parts.append(parts[1])
